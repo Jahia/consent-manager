@@ -1,0 +1,25 @@
+{
+  "name": "jnt:consentType",
+  "fields": [
+    {
+      "name": "j:js2Execute",
+      "selectorType": "CodeMirror",
+      "selectorOptions":[
+        {
+          "name": "mode",
+          "value" : "javascript"
+        }
+      ]
+    },
+    {
+      "name": "j:category",
+      "selectorType": "Choicelist",
+      "selectorOptions": [
+        {
+          "name": "nodes",
+          "value": "/sites/systemsite/categories/consent-manager/;jnt:category"
+        }
+      ]
+    }
+  ]
+}

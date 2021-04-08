@@ -1,0 +1,10 @@
+{
+  "name": "jmix:consentManager",
+  "fields": [
+    {
+      "name": "j:consentNode",
+      "multiple": true,
+      "selectorType": "Picker"
+    }
+  ]
+}

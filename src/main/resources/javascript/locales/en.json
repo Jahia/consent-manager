@@ -1,0 +1,13 @@
+{
+  "label": {
+    "settings": {
+      "title": "Consent Manager setting"
+    },
+    "action": {
+      "title": "Consent Manager - How to extend the ui ?"
+    },
+    "appsAccordion": {
+      "title": "Consent Manager"
+    }
+  }
+}
