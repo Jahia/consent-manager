@@ -1,0 +1,72 @@
+{
+  "name": "consent-manager",
+  "version": "1.0.0",
+  "description": "Jahia module that provides a cookie consent manager",
+  "main": "main.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
+  },
+  "scripts": {
+    "build": "yarn lint:fix && webpack",
+    "build:nolint": "webpack",
+    "build:analyze": "yarn build --analyze",
+    "build:production": "yarn build -p",
+    "build:production-analyze": "yarn build -p --analyze",
+    "dev": "yarn webpack --watch",
+    "clean": "rimraf *.log src/main/resources/javascript/app",
+    "clean:all": "yarn clean && rimraf node_modules node",
+    "test": "jest",
+    "lint": "eslint --ext js,jsx .",
+    "lint:fix": "eslint --ext js,jsx --fix .",
+    "version": "npm version `auto version` -m 'Bump version to: %s [skip ci]'",
+    "publish": "npm publish && git push --follow-tags --set-upstream origin $branch",
+    "release": "./scripts/release.sh"
+  },
+  "author": "Jahia Team",
+  "repository": "git+https://github.com/Jahia/consent-manager.git",
+  "license": "SEE LICENSE IN LICENSE.md FILE",
+  "dependencies": {
+    "@apollo/react-hooks": "^4.0.0",
+    "@jahia/data-helper": "^1.0.1",
+    "apollo-boost": "^0.4.9",
+    "apollo-client": "^2.6.10",
+    "graphql": "^15.5.0",
+    "lodash.get": "^4.4.2",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-i18next": "^11.8.12",
+    "react-scripts": "^4.0.3"
+  },
+  "devDependencies": {
+    "@babel/compat-data": "^7.9.0",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.9.4",
+    "@jahia/eslint-config": "^1.1.0",
+    "auto": "^10.24.1",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^25.3.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-lodash": "^3.3.4",
+    "clean-webpack-plugin": "^3.0.0",
+    "cryptiles": ">=4.1.2",
+    "css-loader": "^5.2.0",
+    "eslint-loader": "^4.0.2",
+    "file-loader": "^6.2.0",
+    "hoek": ">=4.2.1",
+    "husky": "^6.0.0",
+    "pom-parser": "^1.1.1",
+    "rimraf": "^3.0.2",
+    "style-loader": "^2.0.0",
+    "webpack": "5.31.0",
+    "webpack-bundle-analyzer": "^4.4.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-node-externals": "^2.5.2"
+  }
+}

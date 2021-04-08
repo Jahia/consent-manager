@@ -8,7 +8,7 @@
 [jmix:consentManager] mixin
  extends = jnt:virtualsite
  itemtype = options
- - j:consentNode (weakreference) multiple < jnt:consentType
+ - j:consentNodes (weakreference) multiple < jnt:consentType
  - j:cookieDuration (long)
 // - j:consentNode2 (weakreference,choicelist[nodes='$currentSite/contents/consents;jnt:consentType']) multiple < jnt:consentType
 // - j:consentNode3 (weakreference,choicelist[nodes='$site-key/contents/consents;jnt:consentType']) multiple < jnt:consentType
@@ -23,6 +23,6 @@
  - j:description (string) internationalized
  - j:event2Triggered (string)
  - j:js2Execute (string) nofulltext
- - j:isActive (boolean)
+ - j:isActive (boolean) = 'false' autocreated
  - j:category (weakreference)
  - j:defaultState (string,choicelist[resourceBundle]) = 'denied' autocreated < 'denied', 'granted'

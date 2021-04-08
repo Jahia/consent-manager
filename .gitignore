@@ -19,4 +19,4 @@ node_modules
 node
 yarn-error.log
 yarn.lock
-src/main/resources/javascript/apps/webapp
+src/main/resources/javascript/webapp

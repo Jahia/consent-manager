@@ -19,6 +19,27 @@ window.jahia.uiExtender.registry.add('callback', 'consent-manager', {
             cmp: categoryPickerCmp
         });
 
+        const contentPicker = window.jahia.uiExtender.registry.get('selectorType', 'ContentPicker');
+        const consentNodePickerCmp={
+            picker: contentPicker,
+            treeConfigs : [{
+                rootPath: site => `/sites/${site}/contents/consents`,
+                openableTypes: ['jnt:contentFolder'],
+                selectableTypes: ['jnt:contentFolder'],
+                type: 'contents',
+                rootLabelKey: 'content-editor:label.contentEditor.edit.fields.contentPicker.contentsRootLabel'
+            }],
+            searchSelectorType: 'jnt:consentType',
+            listTypesTable: ['jnt:consentType'],
+            selectableTypesTable: ['jnt:consentType']
+        }
+
+        console.debug('consentNodePickerCmp', consentNodePickerCmp);
+        console.debug('%c consentNode pickerConfiguration Extensions  is activated', 'color: #3c8cba');
+        window.jahia.uiExtender.registry.add('pickerConfiguration', 'consentNode', {
+            cmp: consentNodePickerCmp
+        });
+
 
         // const choiceListCmp = Object.assign({},window.jahia.uiExtender.registry.get('selectorType', 'Choicelist').cmp);
         // // categoryPickerCmp.treeConfigs = categoryPickerCmp.treeConfigs.map(treeConfig => {
