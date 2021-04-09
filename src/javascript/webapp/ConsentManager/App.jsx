@@ -47,11 +47,19 @@ const App = () => {
         return <p>Error :(</p>;
     }
 
+    const consentList = virtualSite.consentNodes.map(consent => {
+        console.log('consent.name : ', consent.name);
+        return <li key={consent.id}>{consent.name}</li>;
+    });
+
+    console.log('[App] virtualSite.consentNodes : ', virtualSite.consentNodes);
+    console.log('[App] consentList : ', consentList);
+
     return (
         <>
             <h1>Hello cookie</h1>
             <ul>
-                {virtualSite.consents.forEach(consent => <li>{consent.name}</li>)}
+                {consentList}
             </ul>
         </>
     );

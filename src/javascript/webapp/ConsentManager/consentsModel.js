@@ -1,6 +1,7 @@
 import get from 'lodash.get';
 
 export default function (siteData) {
+    console.log('[consentModel] siteData: ', siteData);
     return {
         // NOTE be sure string value like "false" or "true" are boolean I use JSON.parse to cast
         id: get(siteData, 'id'),

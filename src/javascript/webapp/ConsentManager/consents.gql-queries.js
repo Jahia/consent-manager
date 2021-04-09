@@ -1,5 +1,5 @@
 import {gql} from 'apollo-boost';
-import {PredefinedFragments} from '@jahia/data-helper';
+// Import {PredefinedFragments} from '@jahia/data-helper';
 
 const GET_CONSENTS = gql`
     query getConsents($workspace: Workspace!, $id: String!) {
@@ -12,6 +12,7 @@ const GET_CONSENTS = gql`
                 consentNodes: property(name:"j:consentNodes"){
                     values: refNodes {
                         id: uuid,
+                        name: displayName
                         type: primaryNodeType{
                             name
                         }
@@ -32,7 +33,6 @@ const GET_CONSENTS = gql`
             }
         }
     }
-    ${PredefinedFragments.nodeCacheRequiredFields.gql}
 `;
 
 export {GET_CONSENTS};

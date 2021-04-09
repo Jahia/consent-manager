@@ -10,7 +10,7 @@ import consentMapper from '../consentsModel';
 const init = jContent => {
     return {
         jContent,
-        virtualSite: {consents: []}
+        virtualSite: {consentNodes: []}
         // ResultSet:[],//array of boolean, order is the same a slideSet
         // currentResult:false,//previously result
         // slideSet:[],//previously slideIndex
@@ -35,6 +35,7 @@ const reducer = (state, action) => {
             const {siteData} = payload;
             console.debug('[STORE] DATA_READY - siteData: ', siteData);
             const virtualSite = consentMapper(siteData);
+            console.debug('[STORE] DATA_READY - virtualSite: ', virtualSite);
             return {
                 ...state,
                 virtualSite
