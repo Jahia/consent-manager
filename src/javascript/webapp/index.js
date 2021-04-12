@@ -6,26 +6,41 @@ import ApolloClient from 'apollo-boost';
 import {ApolloProvider} from '@apollo/react-hooks';
 
 import {Store} from './ConsentManager/store';
+import AjvError from './ConsentManager/components/Error/Ajv';
+import {contextValidator} from './ConsentManager/douane';
 
 const render = (target, context) => {
-    const headers = {};
-    if (context.gql_authorization) {
-        headers.Authorization = context.gql_authorization;
+    try {
+        context = contextValidator(context);
+
+        const headers = {};
+        if (context.gqlAuthorization) {
+            headers.Authorization = context.gqlAuthorization;
+        }
+
+        const client = new ApolloClient({
+            uri: context.gqlEndpoint,
+            headers
+        });
+
+        ReactDOM.render(
+            <Store jContent={context}>
+                <ApolloProvider client={client}>
+                    <App/>
+                </ApolloProvider>
+            </Store>,
+            document.getElementById(target)
+        );
+    } catch (e) {
+        console.error('error : ', e);
+        // Note: create a generic error handler
+        return (
+            <AjvError
+                item={e.message}
+                errors={e.errors}
+            />
+        );
     }
-
-    const client = new ApolloClient({
-        uri: context.gql_endpoint,
-        headers
-    });
-
-    ReactDOM.render(
-        <Store jContent={context}>
-            <ApolloProvider client={client}>
-                <App/>
-            </ApolloProvider>
-        </Store>,
-        document.getElementById(target)
-    );
 };
 
 window.jahiaConsentManager = render;

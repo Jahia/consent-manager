@@ -4,13 +4,23 @@ import * as PropTypes from 'prop-types';
 
 // Import {getRandomString} from 'misc/utils';
 // Import {syncQuizScore} from "misc/tracker";
-import consentMapper from '../consentsModel';
+import managerMapper from '../model/manager';
 // Import App from 'src/javascript/webapp/ConsentManager/App';
 
 const init = jContent => {
+    let userConsentPreference;
+    /* eslint no-unused-vars: ["error", {"args": "after-used"}] */
+    try {
+        userConsentPreference = JSON.parse(localStorage.getItem('_jcm_UserConsentPreference'));
+    } catch (e) {
+        console.warn('no user consent preferences stored in localstorage or data are corrupted');
+    }
+
     return {
         jContent,
-        virtualSite: {consentNodes: []}
+        manager: {consentNodes: []},
+        showSideDetails: false,
+        userConsentPreference
         // ResultSet:[],//array of boolean, order is the same a slideSet
         // currentResult:false,//previously result
         // slideSet:[],//previously slideIndex
@@ -32,13 +42,54 @@ const reducer = (state, action) => {
     switch (action.case) {
         case 'DATA_READY': {
             // Prepare slideIds
-            const {siteData} = payload;
-            console.debug('[STORE] DATA_READY - siteData: ', siteData);
-            const virtualSite = consentMapper(siteData);
-            console.debug('[STORE] DATA_READY - virtualSite: ', virtualSite);
+            const {managerData} = payload;
+            console.debug('[STORE] DATA_READY - managerData: ', managerData);
+            const manager = managerMapper(managerData);
+            console.debug('[STORE] DATA_READY - manager: ', manager);
             return {
                 ...state,
-                virtualSite
+                manager
+            };
+        }
+
+        case 'TOGGLE_SHOW_DETAILS': {
+            console.debug('[STORE] TOGGLE_SHOW_DETAILS');
+            return {
+                ...state,
+                showSideDetails: !state.showSideDetails
+            };
+        }
+
+        // Case 'UPDATE_USER_CONSENT_PREFERENCES': {
+        //     console.debug('[STORE] UPDATE_USER_CONSENT_PREFERENCES');
+        //     const userConsentPreference = {
+        //         date:Date.now(),
+        //         consents:state.manager.consentNodes.filter(consent=>consent.)
+        //     }
+        //     localStorage.setItem('_jcm_UserConsentPreference',JSON.stringify(userConsentPreference))
+        //     //Reload the page to restart the cookie loading process
+        //     //We don't care about the return because page is reloaded
+        //     return {
+        //         ...state,
+        //         userConsentPreference:
+        //     };
+        // }
+
+        case 'DENY_ALL': {
+            console.debug('[STORE] DENY_ALL');
+
+            // LocalStorage.setItem('_jcm_UserConsentPreference',JSON.stringify(userConsentPreference))
+            return {
+                ...state
+            };
+        }
+
+        case 'GRANT_ALL': {
+            console.debug('[STORE] GRANT_ALL');
+
+            // LocalStorage.setItem('_jcm_UserConsentPreference',JSON.stringify(userConsentPreference));
+            return {
+                ...state
             };
         }
 

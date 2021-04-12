@@ -2,7 +2,7 @@ import {gql} from 'apollo-boost';
 // Import {PredefinedFragments} from '@jahia/data-helper';
 
 const GET_CONSENTS = gql`
-    query getConsents($workspace: Workspace!, $id: String!) {
+    query getConsents($workspace: Workspace!, $id: String!, $language: String!) {
         response: jcr(workspace: $workspace) {
             site: nodeById(uuid: $id) {
                 id: uuid
@@ -22,7 +22,16 @@ const GET_CONSENTS = gql`
                                 name: displayName
                             }
                         }
-                        isActive:property(name:"j:isActive"){
+                        description:property(language:$language,name:"j:description",){
+                            value
+                        }
+                        event2Triggered:property(name:"j:event2Triggered"){
+                            value
+                        }
+                        js2Execute:property(name:"j:js2Execute"){
+                            value
+                        }
+                        defaultState:property(name:"j:defaultState"){
                             value
                         }
                     }

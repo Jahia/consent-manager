@@ -52,24 +52,25 @@ public class ConsentManager extends AbstractFilter {
         bodyScriptBuilder.append("\n  const "+contextId+" = {");
 //        bodyScriptBuilder.append("    ctx: \""+${url.context}+"\",");
         bodyScriptBuilder.append("\n    language: \""+resource.getLocale()+"\",");
-        bodyScriptBuilder.append("\n    uiLanguage: \""+renderContext.getUILocale().getLanguage()+"\",");
+//        bodyScriptBuilder.append("\n    uiLanguage: \""+renderContext.getUILocale().getLanguage()+"\",");
         bodyScriptBuilder.append("\n    siteUUID: \""+siteUUID+"\",");
         bodyScriptBuilder.append("\n    siteName: \""+site.getName()+"\",");
         bodyScriptBuilder.append("\n    siteKey: \""+site.getSiteKey()+"\",");
         bodyScriptBuilder.append("\n    workspace: \""+renderContext.getWorkspace()+"\",");
         bodyScriptBuilder.append("\n    baseURL: window.location.protocol + '//' + window.location.host,");
-        bodyScriptBuilder.append("\n    gql_endpoint: window.location.protocol + '//' + window.location.host + '/modules/graphql',");
-        bodyScriptBuilder.append("\n    gql_authorization:\"Basic cm9vdDpyb290\",");
-        bodyScriptBuilder.append("\n    gql_variables:{");
-        bodyScriptBuilder.append("\n      id:\""+siteUUID+"\",");
-        bodyScriptBuilder.append("\n      workspace: \"EDIT\",");
-        bodyScriptBuilder.append("\n    },");
+//        bodyScriptBuilder.append("\n    gql_endpoint: window.location.protocol + '//' + window.location.host + '/modules/graphql',");
+        bodyScriptBuilder.append("\n    gqlAuthorization:\"Basic cm9vdDpyb290\",");
+//        bodyScriptBuilder.append("\n    gql_variables:{");
+//        bodyScriptBuilder.append("\n      id:\""+siteUUID+"\",");
+//        bodyScriptBuilder.append("\n      language: \""+resource.getLocale()+"\",");
+//        bodyScriptBuilder.append("\n      workspace: \"EDIT\",");
+//        bodyScriptBuilder.append("\n    },");
         bodyScriptBuilder.append("\n  };");
         bodyScriptBuilder.append("\n  window.jahiaConsentManager(\""+hookId+"\", "+contextId+");");
         bodyScriptBuilder.append("\n})();");
         bodyScriptBuilder.append("\n</script>\n<");
         bodyScript = bodyScriptBuilder.toString();
-        bodyHtmlHook = "\n<div id=\""+hookId+"\">Loading...</div>";
+        bodyHtmlHook = "\n<div id=\""+hookId+"\" class=\"_jcm_wrapper_\">Loading...</div>";
 
         return super.prepare(renderContext, resource, chain);
     }
