@@ -6,11 +6,19 @@ import get from 'lodash.get';
 import {StoreContext} from './contexts';
 import {GET_CONSENTS} from './consents.gql-queries';
 import ConsentLoader from './components/Consent/Loader';
+import ConsentViewer from './components/Consent/Viewer';
+import {events} from './douane/lib/config';
 import './App.scss';
 
 const App = () => {
     const {state, dispatch} = React.useContext(StoreContext);
     const {manager, jContent, showSideDetails, showWrapper, userConsentPreference} = state;
+
+    const handleReview = () => {
+        dispatch({
+            case: 'TOGGLE_SHOW_DETAILS'
+        });
+    };
 
     // Get consentType entry for the site
     const {loading, error, data} = useQuery(GET_CONSENTS, {
@@ -42,6 +50,10 @@ const App = () => {
         }
     }, [loading, data]);
 
+    React.useEffect(() => {
+        window.addEventListener(events.TOGGLE_SHOW_DETAILS, handleReview);
+    }, []);
+
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -57,12 +69,6 @@ const App = () => {
 
     console.log('[App] manager.consentNodes : ', manager.consentNodes);
     console.log('[App] consentList : ', consentList);
-
-    const handleReview = () => {
-        dispatch({
-            case: 'TOGGLE_SHOW_DETAILS'
-        });
-    };
 
     const handleDenyAll = () => {
         dispatch({
@@ -105,9 +111,15 @@ const App = () => {
                     </ul>
                 </div>
             </div>}
-            <div className={`_jcm_side_ ${showSideDetails ? 'active' : ''}`}>
-                bla bla, alors tu acceptes ?
-                {/* details about each cookie */}
+            <div className={`_jcm_side-wrapper ${showSideDetails ? 'active' : ''}`}>
+                <div className="_jcm_side-content">
+                    bla bla, alors tu acceptes ?
+                    {
+
+                    }
+                    <ConsentViewer/>
+                    {/* details about each cookie */}
+                </div>
             </div>
         </>
     );

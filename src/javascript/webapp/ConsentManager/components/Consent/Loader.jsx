@@ -10,6 +10,7 @@ const ConsentLoader = () => {
         if (consent.value) {
             grantedIds.push(consent.id);
         }
+
         return grantedIds;
     }, []);
     const consents2Load = manager.consentNodes

@@ -12,7 +12,7 @@ const ScriptLoader = ({scriptText}) => {
 
         document.head.appendChild(script);
 
-        // return () => {
+        // Return () => {
         //     console.log('[ScriptLoader] useEffect return !');
         //     // Document.head.removeChild(script);
         // };

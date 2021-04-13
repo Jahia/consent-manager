@@ -7,8 +7,11 @@ const consentStatus = {
     DENIED: 'denied'
     // REVOKED:"REVOKED"
 };
-
+const events = {
+    TOGGLE_SHOW_DETAILS: '_jcm_ToggleShowDetails'
+};
 export {
     workspace,
-    consentStatus
+    consentStatus,
+    events
 };
