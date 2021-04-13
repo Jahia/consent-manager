@@ -70,7 +70,7 @@ public class ConsentManager extends AbstractFilter {
         bodyScriptBuilder.append("\n})();");
         bodyScriptBuilder.append("\n</script>\n<");
         bodyScript = bodyScriptBuilder.toString();
-        bodyHtmlHook = "\n<div id=\""+hookId+"\" class=\"_jcm_wrapper_\">Loading...</div>";
+        bodyHtmlHook = "\n<div id=\""+hookId+"\">Loading...</div>";
 
         return super.prepare(renderContext, resource, chain);
     }

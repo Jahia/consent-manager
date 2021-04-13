@@ -8,10 +8,16 @@ import managerMapper from '../model/manager';
 // Import App from 'src/javascript/webapp/ConsentManager/App';
 
 const init = jContent => {
-    let userConsentPreference;
+    let userConsentPreference = {
+        isActive: false,
+        consents: []
+    };
     /* eslint no-unused-vars: ["error", {"args": "after-used"}] */
+
     try {
-        userConsentPreference = JSON.parse(localStorage.getItem('_jcm_UserConsentPreference'));
+        if (localStorage.getItem('_jcm_UserConsentPreference')) {
+            userConsentPreference = JSON.parse(localStorage.getItem('_jcm_UserConsentPreference'));
+        }
     } catch (e) {
         console.warn('no user consent preferences stored in localstorage or data are corrupted');
     }
@@ -20,6 +26,7 @@ const init = jContent => {
         jContent,
         manager: {consentNodes: []},
         showSideDetails: false,
+        showWrapper: !userConsentPreference.isActive,
         userConsentPreference
         // ResultSet:[],//array of boolean, order is the same a slideSet
         // currentResult:false,//previously result
@@ -86,10 +93,19 @@ const reducer = (state, action) => {
 
         case 'GRANT_ALL': {
             console.debug('[STORE] GRANT_ALL');
-
-            // LocalStorage.setItem('_jcm_UserConsentPreference',JSON.stringify(userConsentPreference));
+            const {manager} = state;
+            const userConsentPreference = {
+                isActive: true,
+                date: Date.now(),
+                consents: manager.consentNodes.map(consent => {
+                    return {id: consent.id, value: true};
+                })
+            };
+            localStorage.setItem('_jcm_UserConsentPreference', JSON.stringify(userConsentPreference));
+            console.debug('[STORE] localStorage.setItem : ', JSON.stringify(userConsentPreference));
             return {
-                ...state
+                ...state,
+                userConsentPreference
             };
         }
 

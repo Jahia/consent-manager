@@ -1,8 +1,10 @@
 import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
 import schema from './lib/schema';
 import {ContextException} from '../exceptions/ContextException';
 
 const ajv = new Ajv({useDefaults: true});
+addFormats(ajv);
 
 function getGQLWorkspace(workspace) {
     return workspace === 'default' ?
@@ -20,12 +22,13 @@ const contextValidator = context => {
         });
     }
 
-    context.gqlEndpoint = `${context.baseUrl}/modules/graphql`;
+    context.gqlEndpoint = `${context.baseURL}/modules/graphql`;
     context.gqlVariables = {
         id: context.siteUUID,
         language: context.language,
         workspace: getGQLWorkspace(context.workspace)
     };
+    console.log('[Douane] context : ', context);
     return context;
 };
 

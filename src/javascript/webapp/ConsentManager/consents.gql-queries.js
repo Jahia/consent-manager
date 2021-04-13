@@ -11,7 +11,7 @@ const GET_CONSENTS = gql`
                 }
                 consentNodes: property(name:"j:consentNodes"){
                     values: refNodes {
-                        id: uuid,
+                        id: uuid
                         name: displayName
                         type: primaryNodeType{
                             name
@@ -22,7 +22,7 @@ const GET_CONSENTS = gql`
                                 name: displayName
                             }
                         }
-                        description:property(language:$language,name:"j:description",){
+                        description:property(language:$language,name:"j:description"){
                             value
                         }
                         event2Triggered:property(name:"j:event2Triggered"){

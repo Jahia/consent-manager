@@ -10,7 +10,7 @@ import './App.scss';
 
 const App = () => {
     const {state, dispatch} = React.useContext(StoreContext);
-    const {manager, jContent, showSideDetails, userConsentPreference} = state;
+    const {manager, jContent, showSideDetails, showWrapper, userConsentPreference} = state;
 
     // Get consentType entry for the site
     const {loading, error, data} = useQuery(GET_CONSENTS, {
@@ -51,7 +51,7 @@ const App = () => {
     }
 
     const consentList = manager.consentNodes.map(consent => {
-        console.log('consent.name : ', consent.name);
+        console.log('[App] consent.name : ', consent.name);
         return <li key={consent.id}>{consent.name}</li>;
     });
 
@@ -76,25 +76,35 @@ const App = () => {
         });
     };
 
+    const loadUserConsents = () => {
+        if (userConsentPreference.isActive) {
+            return <ConsentLoader/>;
+        }
+    };
+
+    console.log('[App] userConsentPreference: ', userConsentPreference);
+    console.log('[App] showWrapper: ', showWrapper);
     return (
         <>
-            {userConsentPreference &&
-                <ConsentLoader/>}
-            <div className="_jcm_main_">
-                <a className="btn" value="">Continuer sans accepter</a>
-                <h1>Votre consentement</h1>
-                <div className="text-info">
-                    <p>La nouvelle</p>
+            {loadUserConsents()}
+            {!userConsentPreference.isActive &&
+            <div className={`_jcm_wrapper_ ${showWrapper ? 'active' : ''}`}>
+                <div className="_jcm_main_">
+                    <a className="btn" value="">Continuer sans accepter</a>
+                    <h1>Votre consentement</h1>
+                    <div className="text-info">
+                        <p>La nouvelle</p>
+                    </div>
+
+                    <input type="button" value="Personnaliser mes choix" onClick={handleReview}/>
+                    <input type="button" value="Tout refuser" onClick={handleDenyAll}/>
+                    <input type="button" value="Tout accepter" onClick={handleGrantAll}/>
+
+                    <ul>
+                        {consentList}
+                    </ul>
                 </div>
-
-                <input type="button" value="Personnaliser mes choix" onClick={handleReview}/>
-                <input type="button" value="Tout refuser" onClick={handleDenyAll}/>
-                <input type="button" value="Tout accepter" onClick={handleGrantAll}/>
-
-                <ul>
-                    {consentList}
-                </ul>
-            </div>
+            </div>}
             <div className={`_jcm_side_ ${showSideDetails ? 'active' : ''}`}>
                 bla bla, alors tu acceptes ?
                 {/* details about each cookie */}
