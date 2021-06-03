@@ -21,9 +21,11 @@ public class ConsentManager extends AbstractFilter {
     private String headScript;
     private String bodyHtmlHook;
     private String bodyScript;
+    private final static String CONSENT_MANAGER_MIX="jmix:consentManager";
 
     @Activate
     public void activate() {
+//        setApplyOnModules("consent-manager");
         setPriority(-1);
 //        setApplyOnEditMode(true);
         setApplyOnModes("live,preview");
@@ -42,7 +44,8 @@ public class ConsentManager extends AbstractFilter {
 
 
         StringBuilder headScriptBuilder =
-            new StringBuilder( "\n<script type=\"text/javascript\" src=\"/modules/consent-manager/javascript/webapp/consentManager-vendors.js\"></script>" );
+            new StringBuilder( "\n<link href=\"https://fonts.googleapis.com/css?family=Lato:300,400,700,900\" rel=\"stylesheet\">" );
+        headScriptBuilder.append( "\n<script type=\"text/javascript\" src=\"/modules/consent-manager/javascript/webapp/consentManager-vendors.js\"></script>" );
         headScriptBuilder.append( "\n<script type=\"text/javascript\" src=\"/modules/consent-manager/javascript/webapp/consentManager.js\"></script>\n<");
         headScript = headScriptBuilder.toString();
 
@@ -78,7 +81,10 @@ public class ConsentManager extends AbstractFilter {
     @Override
     public String execute(String previousOut, RenderContext renderContext, Resource resource, RenderChain chain) throws Exception {
         String output = super.execute(previousOut, renderContext, resource, chain);
-        output = enhanceOutput(output);
+        boolean hasConsentManagerEnabled = renderContext.getSite().isNodeType(CONSENT_MANAGER_MIX);
+        if(hasConsentManagerEnabled)
+            output = enhanceOutput(output);
+
         return output;
     }
 

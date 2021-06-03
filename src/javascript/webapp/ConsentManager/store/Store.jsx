@@ -12,11 +12,12 @@ const init = jContent => {
         isActive: false,
         consents: []
     };
+    const storageKey = `_jcm_ucp_${jContent.siteUUID}`;
     /* eslint no-unused-vars: ["error", {"args": "after-used"}] */
 
     try {
-        if (localStorage.getItem('_jcm_UserConsentPreference')) {
-            userConsentPreference = JSON.parse(localStorage.getItem('_jcm_UserConsentPreference'));
+        if (localStorage.getItem(storageKey)) {
+            userConsentPreference = JSON.parse(localStorage.getItem(storageKey));
         }
     } catch (e) {
         console.warn('no user consent preferences stored in localstorage or data are corrupted');
@@ -24,6 +25,7 @@ const init = jContent => {
 
     return {
         jContent,
+        storageKey,
         manager: {consentNodes: []},
         showSideDetails: false,
         showWrapper: !userConsentPreference.isActive,
@@ -73,7 +75,7 @@ const reducer = (state, action) => {
         //         date:Date.now(),
         //         consents:state.manager.consentNodes.filter(consent=>consent.)
         //     }
-        //     localStorage.setItem('_jcm_UserConsentPreference',JSON.stringify(userConsentPreference))
+        //     localStorage.setItem(storageKey,JSON.stringify(userConsentPreference))
         //     //Reload the page to restart the cookie loading process
         //     //We don't care about the return because page is reloaded
         //     return {
@@ -85,7 +87,7 @@ const reducer = (state, action) => {
         case 'DENY_ALL': {
             console.debug('[STORE] DENY_ALL');
 
-            // LocalStorage.setItem('_jcm_UserConsentPreference',JSON.stringify(userConsentPreference))
+            // LocalStorage.setItem(storageKey,JSON.stringify(userConsentPreference))
             return {
                 ...state
             };
@@ -93,15 +95,16 @@ const reducer = (state, action) => {
 
         case 'GRANT_ALL': {
             console.debug('[STORE] GRANT_ALL');
-            const {manager} = state;
+            const {jContent, manager, storageKey} = state;
             const userConsentPreference = {
+                project: jContent.siteKey,
                 isActive: true,
                 date: Date.now(),
                 consents: manager.consentNodes.map(consent => {
                     return {id: consent.id, value: true};
                 })
             };
-            localStorage.setItem('_jcm_UserConsentPreference', JSON.stringify(userConsentPreference));
+            localStorage.setItem(storageKey, JSON.stringify(userConsentPreference));
             console.debug('[STORE] localStorage.setItem : ', JSON.stringify(userConsentPreference));
             return {
                 ...state,

@@ -39,6 +39,24 @@ const GET_CONSENTS = gql`
                 consentDuration: property(name:"j:cookieDuration"){
                     value
                 }
+                userTheme: property(name:"j:webappTheme"){
+                    value
+                }
+                modalDescription: property(language:$language, name:"j:modalDescription"){
+                    value
+                },
+                modalTitle: property(language:$language, name:"j:modalTitle"){
+                    value
+                },
+                btnReview: property(language:$language, name:"j:btnReview"){
+                    value
+                },
+                btnDenyAll: property(language:$language, name:"j:btnDenyAll"){
+                    value
+                },
+                btnGrantAll: property(language:$language, name:"j:btnGrantAll"){
+                    value
+                },
             }
         }
     }

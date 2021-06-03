@@ -11,6 +11,7 @@ import {contextValidator} from './ConsentManager/douane';
 import {events} from './ConsentManager/douane/lib/config';
 
 const render = (target, context) => {
+    // TODO simply this
     const openConsentDetails = elem => {
         const event = new Event(events.TOGGLE_SHOW_DETAILS, {bubbles: true});
         elem.dispatchEvent(event);

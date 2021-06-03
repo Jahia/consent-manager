@@ -5,7 +5,17 @@
 //jmix:editorialContent
 [jmix:consentComponent] > jmix:droppableContent mixin
 
-[jmix:consentManager] mixin
+[jmix:consentManagerStaticLabels] mixin
+ - j:modalTitle (string) = resourceBundle('label.j_modalTitle') autocreated internationalized mandatory indexed=no
+ - j:modalDescription (string, richtext[ckeditor.toolbar='Tinny',ckeditor.customConfig='$context/modules/consent-manager/javascript/ckeditor/config/small.js']) = resourceBundle('label.j_modalDescription') autocreated internationalized mandatory indexed=no
+ - j:btnReview (string) = resourceBundle('label.consent_btnReview') autocreated internationalized mandatory indexed=no
+ - j:btnDenyAll (string) = resourceBundle('label.consent_btnDenyAll') autocreated internationalized mandatory indexed=no
+ - j:btnGrantAll (string) = resourceBundle('label.consent_btnGrantAll') autocreated internationalized mandatory indexed=no
+
+[jmix:consentManagerConfiguration] mixin
+ - j:webappTheme (string) indexed=no
+
+[jmix:consentManager] > jmix:consentManagerConfiguration, jmix:consentManagerStaticLabels mixin
  extends = jnt:virtualsite
  itemtype = options
  - j:consentNodes (weakreference) multiple < jnt:consentType
@@ -23,6 +33,6 @@
  - j:description (string) internationalized
  - j:event2Triggered (string)
  - j:js2Execute (string) nofulltext
- - j:isActive (boolean) = 'false' autocreated //TODO Remove this property
+// - j:isActive (boolean) = 'false' autocreated //TODO Remove this property
  - j:category (weakreference)
  - j:defaultState (string,choicelist[resourceBundle]) = 'denied' autocreated < 'denied', 'granted'

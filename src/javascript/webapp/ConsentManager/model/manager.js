@@ -1,6 +1,18 @@
 import get from 'lodash.get';
 import consentMapper from './consent';
 
+const getTheme = theme => {
+    if (typeof theme === 'string') {
+        try {
+            return JSON.parse(theme);
+        } catch (e) {
+            console.error('the user theme => \n' + theme + '\n => is not a json object : ', e);
+        }
+    }
+
+    return theme;
+};
+
 export default function (managerData) {
     console.log('[consentModel] managerData: ', managerData);
     return {
@@ -9,6 +21,7 @@ export default function (managerData) {
         type: get(managerData, 'type.value'),
         consentNodes: get(managerData, 'consentNodes.values', [])
             .map(consentData => consentMapper(consentData)),
-        consentDuration: get(managerData, 'consentDuration.value', '')
+        consentDuration: get(managerData, 'consentDuration.value', ''),
+        userTheme: getTheme(get(managerData, 'userTheme.value', {}))
     };
 }
