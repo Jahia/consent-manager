@@ -8,18 +8,18 @@ import {ApolloProvider} from '@apollo/react-hooks';
 import {Store} from './ConsentManager/store';
 import AjvError from './ConsentManager/components/Error/Ajv';
 import {contextValidator} from './ConsentManager/douane';
-import {events} from './ConsentManager/douane/lib/config';
+// Import {events} from './ConsentManager/douane/lib/config';
 
 const render = (target, context) => {
-    // TODO simply this
-    const openConsentDetails = elem => {
-        const event = new Event(events.TOGGLE_SHOW_DETAILS, {bubbles: true});
-        elem.dispatchEvent(event);
-    };
-
-    window._jcm_ = {
-        openConsentDetails
-    };
+    // Note : simply this ?
+    // const openConsentDetails = elem => {
+    //     const event = new Event(events.TOGGLE_SHOW_DETAILS, {bubbles: true});
+    //     elem.dispatchEvent(event);
+    // };
+    //
+    // window._jcm_ = {
+    //     openConsentDetails
+    // };
 
     try {
         context = contextValidator(context);

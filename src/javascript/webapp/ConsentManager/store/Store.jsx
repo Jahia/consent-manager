@@ -51,9 +51,32 @@ const reducer = (state, action) => {
     switch (action.case) {
         case 'DATA_READY': {
             // Prepare slideIds
+            const {storageKey} = state;
             const {managerData} = payload;
             console.debug('[STORE] DATA_READY - managerData: ', managerData);
             const manager = managerMapper(managerData);
+            let userConsentPreference = null;
+
+            const userLocalPreference =
+                localStorage.getItem(storageKey) ? JSON.parse(localStorage.getItem(storageKey)) : null;
+
+            if (userLocalPreference) {
+                userConsentPreference = userLocalPreference.consents.reduce((consents, item) => {
+                    consents[item.id] = item.value;
+                    return consents;
+                }, {});
+            }
+
+            if (userConsentPreference) {
+                manager.consentNodes = manager.consentNodes.map(consentNode => {
+                    if (Object.prototype.hasOwnProperty.call(userConsentPreference, consentNode.id)) {
+                        consentNode.isGranted = userConsentPreference[consentNode.id];
+                    }
+
+                    return consentNode;
+                });
+            }
+
             console.debug('[STORE] DATA_READY - manager: ', manager);
             return {
                 ...state,
@@ -108,6 +131,40 @@ const reducer = (state, action) => {
             console.debug('[STORE] localStorage.setItem : ', JSON.stringify(userConsentPreference));
             return {
                 ...state,
+                userConsentPreference
+            };
+        }
+
+        case 'TOGGLE_CONSENT': {
+            console.debug('[STORE] TOGGLE_CONSENT');
+            const {consent} = payload;
+            const {jContent, manager, storageKey} = state;
+
+            const consentNodes = manager.consentNodes.map(consentNode => {
+                if (consentNode.id === consent.id) {
+                    consentNode.isGranted = !consentNode.isGranted;
+                }
+
+                return consentNode;
+            });
+
+            const userConsentPreference = {
+                project: jContent.siteKey,
+                isActive: true,
+                date: Date.now(),
+                consents: manager.consentNodes.map(consentNode => {
+                    return {id: consentNode.id, value: consentNode.isGranted};
+                })
+            };
+
+            localStorage.setItem(storageKey, JSON.stringify(userConsentPreference));
+            console.debug('[STORE] localStorage.setItem : ', JSON.stringify(userConsentPreference));
+            return {
+                ...state,
+                manager: {
+                    ...manager,
+                    consentNodes
+                },
                 userConsentPreference
             };
         }

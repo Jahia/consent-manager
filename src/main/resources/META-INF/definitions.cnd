@@ -33,6 +33,6 @@
  - j:description (string) internationalized
  - j:event2Triggered (string)
  - j:js2Execute (string) nofulltext
-// - j:isActive (boolean) = 'false' autocreated //TODO Remove this property
+ - j:isMandatory (boolean) = 'false' autocreated
  - j:category (weakreference)
  - j:defaultState (string,choicelist[resourceBundle]) = 'denied' autocreated < 'denied', 'granted'

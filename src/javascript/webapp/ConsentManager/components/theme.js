@@ -57,9 +57,9 @@ const defaultTheme = {
         }
     },
     typography: {
-        // AllVariants: {
-        //     color: 'rgba(255, 255, 255, 0.87)'
-        // },
+        AllVariants: {
+            color: 'rgba(0, O, 0, 0.87)'
+        },
         fontFamily: ['Lato', 'Helvetica', 'Arial', 'sans-serif'].join(','),
         h3: {
             fontWeight: 300

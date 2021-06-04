@@ -7,7 +7,7 @@ import {StoreContext} from './contexts';
 import {GET_CONSENTS} from './consents.gql-queries';
 import ConsentLoader from './components/Consent/Loader';
 import ConsentViewer from './components/Consent/Viewer';
-import {events} from './douane/lib/config';
+// Import {events} from './douane/lib/config';
 
 import classnames from 'clsx';
 import {Button, Typography, Modal, Backdrop, Fade} from '@material-ui/core';
@@ -17,6 +17,11 @@ import theme from './components/theme';
 // Import './App.scss';
 
 const useStyles = makeStyles(theme => ({
+    main: {
+        '& *, &::after, &::before': {
+            boxSizing: 'border-box'
+        }
+    },
     modal: {
         display: 'flex',
         alignItems: 'center',
@@ -25,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     paper: {
         backgroundColor: theme.palette.background.paper,
         border: '1px solid #ccc',
-        boxShadow: theme.shadows[6],
+        boxShadow: theme.shadows[5],
         borderRadius: '3px',
         padding: theme.spacing(2, 4, 3)
     },
@@ -44,7 +49,8 @@ const useStyles = makeStyles(theme => ({
         right: 0,
         width: 0,
         zIndex: 10001,
-        boxShadow: '8px 0 8px -10px $dark-grey,-8px 0 8px -10px $dark-grey',
+        padding: theme.spacing(2),
+        boxShadow: `8px 0 8px -10px ${theme.palette.grey[800]},-8px 0 8px -10px ${theme.palette.grey[800]}`,
         background: 'rgba(255,255,255,.95)',
         transition: 'width .5s ease',
 
@@ -82,12 +88,6 @@ const App = props => {
     const {state, dispatch} = React.useContext(StoreContext);
     const {manager, jContent, showSideDetails, showWrapper, userConsentPreference} = state;
 
-    const handleReview = () => {
-        dispatch({
-            case: 'TOGGLE_SHOW_DETAILS'
-        });
-    };
-
     // Get consentType entry for the site
     const {loading, error, data} = useQuery(GET_CONSENTS, {
         variables: jContent.gqlVariables
@@ -119,9 +119,9 @@ const App = props => {
         }
     }, [loading, data]);
 
-    React.useEffect(() => {
-        window.addEventListener(events.TOGGLE_SHOW_DETAILS, handleReview);
-    }, []);
+    // React.useEffect(() => {
+    //     window.addEventListener(events.TOGGLE_SHOW_DETAILS, handleReview);
+    // }, []);
 
     if (loading) {
         return <p>Loading...</p>;
@@ -135,6 +135,17 @@ const App = props => {
         console.log('[App] consent.name : ', consent.name);
         return <li key={consent.id}>{consent.name}</li>;
     });
+
+    const handleReview = () => {
+        // E.preventDefault();
+        dispatch({
+            case: 'TOGGLE_SHOW_DETAILS'
+        });
+    };
+
+    window._jcm_ = {
+        openConsentDetails: handleReview
+    };
 
     console.log('[App] manager.consentNodes : ', manager.consentNodes);
     console.log('[App] consentList : ', consentList);
@@ -161,61 +172,64 @@ const App = props => {
     console.log('[App] showWrapper: ', showWrapper);
     return (
         <ThemeProvider theme={theme(manager ? manager.userTheme : {})}>
-            {loadUserConsents()}
-            {!userConsentPreference.isActive &&
-            <Modal
-                closeAfterTransition
-                disableBackdropClick
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                // OnClose={handleClose}
-                className={classes.modal}
-                open={showWrapper}
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500
-                }}
-            >
-                <Fade in={open}>
-                    <div className={classes.paper}>
-                        {jContent.languageBundle &&
-                        <>
-                            <Typography variant="h2" id="transition-modal-title">
-                                {jContent.languageBundle.modalTitle}
-                            </Typography>
-                            <Typography
-                                id="transition-modal-description"
-                                component="div"
-                                // ClassName={classes.description}
-                                dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(jContent.languageBundle.modalDescription, {ADD_ATTR: ['target']})}}/>
-                            <div className={classes.btnWrapper}>
-                                <Button onClick={handleReview}>
-                                    {jContent.languageBundle && jContent.languageBundle.btnReview}
-                                </Button>
-                                <Button onClick={handleDenyAll}>
-                                    {jContent.languageBundle && jContent.languageBundle.btnDenyAll}
-                                </Button>
-                                <Button onClick={handleGrantAll}>
-                                    {jContent.languageBundle && jContent.languageBundle.btnGrantAll}
-                                </Button>
-                            </div>
-                        </>}
+            <div className={classes.main}>
+                {loadUserConsents()}
+                {!userConsentPreference.isActive &&
+                <Modal
+                    closeAfterTransition
+                    disableBackdropClick
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    // OnClose={handleClose}
+                    className={classes.modal}
+                    open={showWrapper}
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500
+                    }}
+                >
+                    <Fade in={open}>
+                        <div className={classes.paper}>
+                            {jContent.languageBundle &&
+                            <>
+                                <Typography variant="h2" id="transition-modal-title">
+                                    {jContent.languageBundle.modalTitle}
+                                </Typography>
+                                <Typography
+                                    id="transition-modal-description"
+                                    component="div"
+                                    // ClassName={classes.description}
+                                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(jContent.languageBundle.modalDescription, {ADD_ATTR: ['target']})}}/>
+                                <div className={classes.btnWrapper}>
+                                    <Button onClick={handleReview}>
+                                        {jContent.languageBundle && jContent.languageBundle.btnReview}
+                                    </Button>
+                                    <Button onClick={handleDenyAll}>
+                                        {jContent.languageBundle && jContent.languageBundle.btnDenyAll}
+                                    </Button>
+                                    <Button onClick={handleGrantAll}>
+                                        {jContent.languageBundle && jContent.languageBundle.btnGrantAll}
+                                    </Button>
+                                </div>
+                            </>}
+                        </div>
+                    </Fade>
+                </Modal>}
+
+                <div className={classnames(
+                    classes.sideWrapper,
+                    (showSideDetails ? 'active' : '')
+                )}
+                >
+                    <div className={classes.sideContent}>
+                        <Typography variant="h3">
+                            Consent details
+                            {/* {jContent.languageBundle.modalTitle} */}
+                        </Typography>
+
+                        <ConsentViewer/>
+                        {/* details about each cookie */}
                     </div>
-                </Fade>
-            </Modal>}
-
-            <div className={classnames(
-                classes.sideWrapper,
-                (showSideDetails ? 'active' : '')
-            )}
-            >
-                <div className={classes.sideContent}>
-                    bla bla, alors tu acceptes ?
-                    {
-
-                    }
-                    <ConsentViewer/>
-                    {/* details about each cookie */}
                 </div>
             </div>
         </ThemeProvider>

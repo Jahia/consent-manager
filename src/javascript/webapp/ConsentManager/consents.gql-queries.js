@@ -31,6 +31,9 @@ const GET_CONSENTS = gql`
                         js2Execute:property(name:"j:js2Execute"){
                             value
                         }
+                        isMandatory:property(name:"j:isMandatory"){
+                            value
+                        }
                         defaultState:property(name:"j:defaultState"){
                             value
                         }

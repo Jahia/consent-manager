@@ -15,6 +15,7 @@ export default function (consentData) {
         description: get(consentData, 'description.value'),
         event2Triggered: get(consentData, 'event2Triggered.value', null),
         js2Execute: get(consentData, 'js2Execute.value', null),
+        isMandatory: JSON.parse(get(consentData, 'isMandatory.value', false)),
         isGranted
     };
 }
