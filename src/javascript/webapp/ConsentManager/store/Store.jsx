@@ -84,6 +84,33 @@ const reducer = (state, action) => {
             };
         }
 
+        case 'SAVE_USER_PREFERENCE': {
+            console.debug('[STORE] SAVE_USER_PREFERENCE');
+            const {consentNodes} = payload;
+            const {jContent, manager, storageKey} = state;
+
+            const userConsentPreference = {
+                project: jContent.siteKey,
+                isActive: true,
+                date: Date.now(),
+                consents: consentNodes.map(consentNode => {
+                    return {id: consentNode.id, value: consentNode.isGranted};
+                })
+            };
+
+            localStorage.setItem(storageKey, JSON.stringify(userConsentPreference));
+            console.debug('[STORE] localStorage.setItem : ', JSON.stringify(userConsentPreference));
+            return {
+                ...state,
+                showSideDetails: false,
+                manager: {
+                    ...manager,
+                    consentNodes
+                },
+                userConsentPreference
+            };
+        }
+
         case 'TOGGLE_SHOW_DETAILS': {
             console.debug('[STORE] TOGGLE_SHOW_DETAILS');
             return {
@@ -135,39 +162,39 @@ const reducer = (state, action) => {
             };
         }
 
-        case 'TOGGLE_CONSENT': {
-            console.debug('[STORE] TOGGLE_CONSENT');
-            const {consent} = payload;
-            const {jContent, manager, storageKey} = state;
-
-            const consentNodes = manager.consentNodes.map(consentNode => {
-                if (consentNode.id === consent.id) {
-                    consentNode.isGranted = !consentNode.isGranted;
-                }
-
-                return consentNode;
-            });
-
-            const userConsentPreference = {
-                project: jContent.siteKey,
-                isActive: true,
-                date: Date.now(),
-                consents: manager.consentNodes.map(consentNode => {
-                    return {id: consentNode.id, value: consentNode.isGranted};
-                })
-            };
-
-            localStorage.setItem(storageKey, JSON.stringify(userConsentPreference));
-            console.debug('[STORE] localStorage.setItem : ', JSON.stringify(userConsentPreference));
-            return {
-                ...state,
-                manager: {
-                    ...manager,
-                    consentNodes
-                },
-                userConsentPreference
-            };
-        }
+        // Case 'TOGGLE_CONSENT': {
+        //     console.debug('[STORE] TOGGLE_CONSENT');
+        //     const {consent} = payload;
+        //     const {jContent, manager, storageKey} = state;
+        //
+        //     const consentNodes = manager.consentNodes.map(consentNode => {
+        //         if (consentNode.id === consent.id) {
+        //             consentNode.isGranted = !consentNode.isGranted;
+        //         }
+        //
+        //         return consentNode;
+        //     });
+        //
+        //     const userConsentPreference = {
+        //         project: jContent.siteKey,
+        //         isActive: true,
+        //         date: Date.now(),
+        //         consents: manager.consentNodes.map(consentNode => {
+        //             return {id: consentNode.id, value: consentNode.isGranted};
+        //         })
+        //     };
+        //
+        //     localStorage.setItem(storageKey, JSON.stringify(userConsentPreference));
+        //     console.debug('[STORE] localStorage.setItem : ', JSON.stringify(userConsentPreference));
+        //     return {
+        //         ...state,
+        //         manager: {
+        //             ...manager,
+        //             consentNodes
+        //         },
+        //         userConsentPreference
+        //     };
+        // }
 
         // Case "ADD_CXS": {
         //     const cxs = payload.cxs;

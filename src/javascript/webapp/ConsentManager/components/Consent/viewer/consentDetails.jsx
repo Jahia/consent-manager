@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Switch, Typography, Grid} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 import DOMPurify from 'dompurify';
-import {StoreContext} from '../../../contexts';
+// Import {StoreContext} from '../../../contexts';
 
 const AntSwitch = withStyles(theme => ({
     root: {
@@ -39,18 +39,7 @@ const AntSwitch = withStyles(theme => ({
     checked: {}
 }))(Switch);
 
-const ConsentDetail = ({consent}) => {
-    const {dispatch} = React.useContext(StoreContext);
-
-    const handleChange = () => {
-        dispatch({
-            case: 'TOGGLE_CONSENT',
-            payload: {
-                consent
-            }
-        });
-    };
-
+const ConsentDetail = ({consent, handleToggleConsent}) => {
     return (
         <>
             <Typography variant="h4">
@@ -69,7 +58,7 @@ const ConsentDetail = ({consent}) => {
                             name="checkedC"
                             checked={consent.isMandatory ? consent.isMandatory : consent.isGranted}
                             disabled={consent.isMandatory}
-                            onChange={handleChange}
+                            onChange={() => handleToggleConsent(consent)}
                         />
                     </Grid>
                     <Grid item>On</Grid>
@@ -80,7 +69,8 @@ const ConsentDetail = ({consent}) => {
 };
 
 ConsentDetail.propTypes = {
-    consent: PropTypes.object.isRequired
+    consent: PropTypes.object.isRequired,
+    handleToggleConsent: PropTypes.func.isRequired
 };
 
 export default ConsentDetail;
