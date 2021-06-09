@@ -162,8 +162,17 @@ const reducer = (state, action) => {
                 })
             };
             localStorage.setItem(storageKey, JSON.stringify(userConsentPreference));
+            const consentNodes = manager.consentNodes.map(consentNode => {
+                consentNode.isGranted = consentNode.isMandatory;
+                return consentNode;
+            });
             return {
                 ...state,
+                manager: {
+                    ...manager,
+                    consentNodes
+                },
+                showSideDetails: false,
                 userConsentPreference
             };
         }
@@ -189,8 +198,19 @@ const reducer = (state, action) => {
             };
             localStorage.setItem(storageKey, JSON.stringify(userConsentPreference));
             console.debug('[STORE] localStorage.setItem : ', JSON.stringify(userConsentPreference));
+
+            const consentNodes = manager.consentNodes.map(consentNode => {
+                consentNode.isGranted = true;
+                return consentNode;
+            });
+
             return {
                 ...state,
+                manager: {
+                    ...manager,
+                    consentNodes
+                },
+                showSideDetails: false,
                 userConsentPreference
             };
         }
