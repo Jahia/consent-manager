@@ -14,6 +14,10 @@ export default {
                 enum: workspace,
                 default: workspace[1]// "live"
             },
+            cdpEndPoint: {
+                type: 'string',
+                format: 'uri'
+            },
             baseURL: {
                 type: 'string',
                 format: 'uri',

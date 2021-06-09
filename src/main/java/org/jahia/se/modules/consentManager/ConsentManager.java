@@ -61,6 +61,7 @@ public class ConsentManager extends AbstractFilter {
         bodyScriptBuilder.append("\n    siteKey: \""+site.getSiteKey()+"\",");
         bodyScriptBuilder.append("\n    workspace: \""+renderContext.getWorkspace()+"\",");
         bodyScriptBuilder.append("\n    baseURL: window.location.protocol + '//' + window.location.host,");
+        bodyScriptBuilder.append("\n    cdpEndPoint:window.digitalData?window.digitalData.contextServerPublicUrl:undefined,");//digitalData is set in live mode only
 //        bodyScriptBuilder.append("\n    gql_endpoint: window.location.protocol + '//' + window.location.host + '/modules/graphql',");
         bodyScriptBuilder.append("\n    gqlAuthorization:\"Basic cm9vdDpyb290\",");
 //        bodyScriptBuilder.append("\n    gql_variables:{");

@@ -7,6 +7,7 @@ import {StoreContext} from './contexts';
 import {GET_CONSENTS} from './consents.gql-queries';
 import ConsentLoader from './components/Consent/Loader';
 import ConsentViewer from './components/Consent/Viewer';
+import {syncTracker} from './unomi/tracker';
 // Import {events} from './douane/lib/config';
 
 import classnames from 'clsx';
@@ -14,7 +15,7 @@ import {Button, Typography, Modal, Backdrop, Fade} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import {ThemeProvider} from '@material-ui/core/styles';
 import theme from './components/theme';
-// Import './App.scss';
+import cssSharedClasses from './cssSharedClasses';
 
 const useStyles = makeStyles(theme => ({
     main: {
@@ -84,14 +85,36 @@ const initLanguageBundle = managerData => {
 
 const App = props => {
     const classes = useStyles(props);
+    const sharedClasses = cssSharedClasses(props);
 
     const {state, dispatch} = React.useContext(StoreContext);
-    const {manager, jContent, showSideDetails, showWrapper, userConsentPreference} = state;
+    const {
+        manager,
+        jContent,
+        showSideDetails,
+        showWrapper,
+        userConsentPreference,
+        cxs
+    } = state;
 
     // Get consentType entry for the site
     const {loading, error, data} = useQuery(GET_CONSENTS, {
         variables: jContent.gqlVariables
     });
+
+    React.useEffect(() => {
+        // Window.addEventListener(events.TOGGLE_SHOW_DETAILS, handleReview);
+
+        // Init unomi tracker
+        if (jContent.gqlVariables.workspace === 'LIVE' && !cxs) {
+            syncTracker({
+                scope: jContent.siteKey,
+                url: jContent.cdpEndPoint,
+                // SessionId:`qZ-${quizKey}-${Date.now()}`,
+                dispatch
+            });
+        }
+    }, []);
 
     React.useEffect(() => {
         console.debug('App consent-manager init !');
@@ -107,21 +130,8 @@ const App = props => {
                     managerData
                 }
             });
-
-            // Init unomi tracker
-            // if(jContent.gqlVariables.workspace === "LIVE")
-            //     syncTracker({
-            //         scope: jContent.scope,
-            //         url: jContent.cdp_endpoint,
-            //         sessionId:`qZ-${quizKey}-${Date.now()}`,
-            //         dispatch
-            //     });
         }
     }, [loading, data]);
-
-    // React.useEffect(() => {
-    //     window.addEventListener(events.TOGGLE_SHOW_DETAILS, handleReview);
-    // }, []);
 
     if (loading) {
         return <p>Loading...</p>;
@@ -200,7 +210,7 @@ const App = props => {
                                     component="div"
                                     // ClassName={classes.description}
                                     dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(jContent.languageBundle.modalDescription, {ADD_ATTR: ['target']})}}/>
-                                <div className={classes.btnWrapper}>
+                                <div className={sharedClasses.btnWrapper}>
                                     <Button onClick={handleReview}>
                                         {jContent.languageBundle && jContent.languageBundle.btnReview}
                                     </Button>

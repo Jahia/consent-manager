@@ -3,8 +3,10 @@ import {StoreContext} from '../../contexts';
 // Import PropTypes from 'prop-types';
 import ConsentDetail from './viewer/consentDetails';
 import {Button} from '@material-ui/core';
+import cssSharedClasses from '../../cssSharedClasses';
 
-const ConsentViewer = () => {
+const ConsentViewer = props => {
+    const sharedClasses = cssSharedClasses(props);
     const {state, dispatch} = React.useContext(StoreContext);
     const {manager} = state;
 
@@ -31,6 +33,11 @@ const ConsentViewer = () => {
             return consentNode;
         }));
     };
+
+    const handleCancel = () =>
+        dispatch({
+            case: 'TOGGLE_SHOW_DETAILS'
+        });
 
     // Const userConsentGranted = userConsentPreference.consents.reduce((grantedIds, consent) => {
     //     if (consent.value) {
@@ -70,10 +77,16 @@ const ConsentViewer = () => {
     return (
         <>
             {consents2Display}
-            <Button onClick={handleSavePreference}>
-                save preference
-                {/* {jContent.languageBundle && jContent.languageBundle.btnGrantAll} */}
-            </Button>
+            <div className={sharedClasses.btnWrapper}>
+                <Button onClick={handleSavePreference}>
+                    save preference
+                    {/* {jContent.languageBundle && jContent.languageBundle.btnGrantAll} */}
+                </Button>
+                <Button onClick={handleCancel}>
+                    cancel
+                    {/* {jContent.languageBundle && jContent.languageBundle.btnGrantAll} */}
+                </Button>
+            </div>
         </>
 
     );
