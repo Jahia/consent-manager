@@ -17,7 +17,7 @@ const GET_CONSENTS = gql`
                             name
                         }
                         path
-                        category: property(name:"j:category"){
+                        category: property(language:$language,name:"j:category"){
                             node: refNode {
                                 name: displayName
                             }
