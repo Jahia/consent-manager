@@ -18,8 +18,8 @@ import java.util.List;
 @Component(service = RenderFilter.class)
 public class ConsentManager extends AbstractFilter {
     private static Logger logger = LoggerFactory.getLogger(ConsentManager.class);
-    private String gtHeadScript;
-    private String gtBodyScript;
+//    private String gtHeadScript;
+//    private String gtBodyScript;
     private String headScript;
     private String bodyHtmlHook;
     private String bodyScript;
@@ -45,20 +45,20 @@ public class ConsentManager extends AbstractFilter {
         String contextId = "consent_manager_ctx_"+jsid;
 
 //TEMP Google tag Manager Event triggered Test
-        StringBuilder headGoogleTagManagerScriptBuilder = new StringBuilder("<!-- Google Tag Manager -->");
-        headGoogleTagManagerScriptBuilder.append("<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':");
-        headGoogleTagManagerScriptBuilder.append("new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],");
-        headGoogleTagManagerScriptBuilder.append("j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=");
-        headGoogleTagManagerScriptBuilder.append("'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);");
-        headGoogleTagManagerScriptBuilder.append("})(window,document,'script','dataLayer','GTM-TQC2CZH');</script>");
-        headGoogleTagManagerScriptBuilder.append("<!-- End Google Tag Manager -->");
-        gtHeadScript = headGoogleTagManagerScriptBuilder.toString();
-
-        StringBuilder bodyGoogleTagManagerScriptBuilder = new StringBuilder("<!-- Google Tag Manager (noscript) -->");
-        bodyGoogleTagManagerScriptBuilder.append("<noscript><iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-TQC2CZH\"");
-        bodyGoogleTagManagerScriptBuilder.append("height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>");
-        bodyGoogleTagManagerScriptBuilder.append("<!-- End Google Tag Manager (noscript) -->");
-        gtBodyScript = bodyGoogleTagManagerScriptBuilder.toString();
+//        StringBuilder headGoogleTagManagerScriptBuilder = new StringBuilder("<!-- Google Tag Manager -->");
+//        headGoogleTagManagerScriptBuilder.append("<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':");
+//        headGoogleTagManagerScriptBuilder.append("new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],");
+//        headGoogleTagManagerScriptBuilder.append("j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=");
+//        headGoogleTagManagerScriptBuilder.append("'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);");
+//        headGoogleTagManagerScriptBuilder.append("})(window,document,'script','dataLayer','GTM-TQC2CZH');</script>");
+//        headGoogleTagManagerScriptBuilder.append("<!-- End Google Tag Manager -->");
+//        gtHeadScript = headGoogleTagManagerScriptBuilder.toString();
+//
+//        StringBuilder bodyGoogleTagManagerScriptBuilder = new StringBuilder("<!-- Google Tag Manager (noscript) -->");
+//        bodyGoogleTagManagerScriptBuilder.append("<noscript><iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-TQC2CZH\"");
+//        bodyGoogleTagManagerScriptBuilder.append("height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>");
+//        bodyGoogleTagManagerScriptBuilder.append("<!-- End Google Tag Manager (noscript) -->");
+//        gtBodyScript = bodyGoogleTagManagerScriptBuilder.toString();
 //\TEMP Google tag Manager Event triggered Test
 
 
@@ -123,8 +123,8 @@ public class ConsentManager extends AbstractFilter {
         //Add webapp script to the HEAD tag
         List<Element> elementList = source.getAllElements(HTMLElementName.HEAD);
         if (elementList != null && !elementList.isEmpty()) {
-            final StartTag headStartTag = elementList.get(0).getStartTag();
-            outputDocument.replace(headStartTag.getEnd(), headStartTag.getEnd() + 1, gtHeadScript);
+//            final StartTag headStartTag = elementList.get(0).getStartTag();
+//            outputDocument.replace(headStartTag.getEnd(), headStartTag.getEnd() + 1, gtHeadScript);
 
             final EndTag headEndTag = elementList.get(0).getEndTag();
             outputDocument.replace(headEndTag.getBegin(), headEndTag.getBegin() + 1, headScript);
@@ -133,8 +133,8 @@ public class ConsentManager extends AbstractFilter {
         //Add context script and html hook to the BODY tag
         elementList = source.getAllElements(HTMLElementName.BODY);
         if (elementList != null && !elementList.isEmpty()) {
-            final StartTag bodyStartTag = elementList.get(0).getStartTag();
-            outputDocument.replace(bodyStartTag.getEnd(), bodyStartTag.getEnd() + 1, gtBodyScript);
+//            final StartTag bodyStartTag = elementList.get(0).getStartTag();
+//            outputDocument.replace(bodyStartTag.getEnd(), bodyStartTag.getEnd() + 1, gtBodyScript);
 
             final EndTag bodyEndTag = elementList.get(0).getEndTag();
             outputDocument.replace(bodyEndTag.getBegin(), bodyEndTag.getBegin() + 1, bodyHtmlHook+bodyScript);
