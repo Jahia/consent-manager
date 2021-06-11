@@ -1,0 +1,15 @@
+{
+  "name": "jmix:consentManagerStaticLabels",
+  "fields": [
+    {
+      "name": "j:cmCompanyLogo",
+      "selectorType": "Picker",
+      "selectorOptions": [
+        {
+          "name": "type",
+          "value": "image"
+        }
+      ]
+    }
+  ]
+}

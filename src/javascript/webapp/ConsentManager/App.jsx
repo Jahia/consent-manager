@@ -11,8 +11,9 @@ import {syncTracker} from './unomi/tracker';
 // Import {events} from './douane/lib/config';
 
 import classnames from 'clsx';
-import {Button, Typography, Modal, Backdrop, Fade} from '@material-ui/core';
+import {Button, Typography, Modal, Backdrop, Fade, Link} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import {ThemeProvider} from '@material-ui/core/styles';
 import theme from './components/theme';
 import cssSharedClasses from './cssSharedClasses';
@@ -27,20 +28,15 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
+        // MaxWidth: '730px'
     },
     paper: {
-        backgroundColor: theme.palette.background.paper,
+        // BackgroundColor: theme.palette.background.paper,
+        backgroundColor: '#f1f3f4',
         border: '1px solid #ccc',
         boxShadow: theme.shadows[5],
         borderRadius: '3px',
         padding: theme.spacing(2, 4, 3)
-    },
-    btnWrapper: {
-        display: 'flex',
-        justifyContent: 'center',
-        '& button': {
-            marginRight: theme.spacing(1)
-        }
     },
     sideWrapper: {
         visibility: 'hidden',
@@ -52,7 +48,8 @@ const useStyles = makeStyles(theme => ({
         zIndex: 10001,
         padding: theme.spacing(2),
         boxShadow: `8px 0 8px -10px ${theme.palette.grey[800]},-8px 0 8px -10px ${theme.palette.grey[800]}`,
-        background: 'rgba(255,255,255,.95)',
+        // Background: 'rgba(255,255,255,.95)',
+        backgroundColor: '#f1f3f4',
         transition: 'width .5s ease',
 
         '&.active': {
@@ -65,6 +62,25 @@ const useStyles = makeStyles(theme => ({
         transition: 'opacity 1s ease',
         '.active &': {
             opacity: 1
+        }
+    },
+    sideContentTitle: {
+        marginBottom: theme.spacing(3)
+    },
+    denyAllLink: {
+        float: 'right'
+    },
+    consentTitle: {
+        clear: 'both'
+    },
+    logo: {
+        clear: 'both',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: theme.spacing(2),
+        '& img': {
+            maxWidth: '150px'// Theme.geometry.logo.maxWidth
         }
     }
 }));
@@ -178,6 +194,40 @@ const App = props => {
         }
     };
 
+    const getTitle = () => {
+        if (manager.logo) {
+            return (
+                <div className={classes.logo}>
+                    <img className=""
+                         id="transition-modal-title"
+                         src={`${jContent.filesEndpoint}${encodeURI(manager.logo)}`}
+                         alt={jContent.siteName}/>
+                </div>
+
+            );
+        }
+
+        if (jContent.languageBundle.modalTitle) {
+            return (
+                <Typography className={classes.consentTitle}
+                            variant="h3"
+                            id="transition-modal-title"
+                >
+                    {jContent.languageBundle.modalTitle}
+                </Typography>
+            );
+        }
+
+        return (
+            <Typography className={classes.consentTitle}
+                        variant="h3"
+                        id="transition-modal-title"
+            >
+                {jContent.siteName}
+            </Typography>
+        );
+    };
+
     console.log('[App] userConsentPreference: ', userConsentPreference);
     console.log('[App] showWrapper: ', showWrapper);
     return (
@@ -197,26 +247,38 @@ const App = props => {
                     BackdropProps={{
                         timeout: 500
                     }}
+                    maxWidth="md"
                 >
                     <Fade in={open}>
                         <div className={classes.paper}>
                             {jContent.languageBundle &&
                             <>
-                                <Typography variant="h2" id="transition-modal-title">
-                                    {jContent.languageBundle.modalTitle}
-                                </Typography>
+
+                                <Link component="button"
+                                      variant="body1"
+                                      color="primary"
+                                      className={classes.denyAllLink}
+                                      onClick={handleDenyAll}
+                                >
+                                    {jContent.languageBundle && jContent.languageBundle.btnDenyAll}
+                                    <ArrowRightAltIcon/>
+                                </Link>
+                                    {/* continuer sans accepter */}
+
+                                {getTitle()}
+
                                 <Typography
                                     id="transition-modal-description"
                                     component="div"
                                     // ClassName={classes.description}
                                     dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(jContent.languageBundle.modalDescription, {ADD_ATTR: ['target']})}}/>
                                 <div className={sharedClasses.btnWrapper}>
-                                    <Button onClick={handleReview}>
+                                    <Button variant="outlined" onClick={handleReview}>
                                         {jContent.languageBundle && jContent.languageBundle.btnReview}
                                     </Button>
-                                    <Button onClick={handleDenyAll}>
-                                        {jContent.languageBundle && jContent.languageBundle.btnDenyAll}
-                                    </Button>
+                                    {/* <Button onClick={handleDenyAll}> */}
+                                    {/*    {jContent.languageBundle && jContent.languageBundle.btnDenyAll} */}
+                                    {/* </Button> */}
                                     <Button onClick={handleGrantAll}>
                                         {jContent.languageBundle && jContent.languageBundle.btnGrantAll}
                                     </Button>
@@ -232,7 +294,7 @@ const App = props => {
                 )}
                 >
                     <div className={classes.sideContent}>
-                        <Typography variant="h3">
+                        <Typography className={classes.sideContentTitle} variant="h4">
                             Consent details
                             {/* {jContent.languageBundle.modalTitle} */}
                         </Typography>

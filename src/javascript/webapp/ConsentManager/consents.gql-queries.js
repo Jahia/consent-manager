@@ -9,7 +9,7 @@ const GET_CONSENTS = gql`
                 type:primaryNodeType{
                     value:name
                 }
-                consentNodes: property(name:"j:consentNodes"){
+                consentNodes: property(language:$language,name:"j:consentNodes"){
                     values: refNodes {
                         id: uuid
                         name: displayName
@@ -44,6 +44,18 @@ const GET_CONSENTS = gql`
                 }
                 userTheme: property(name:"j:webappTheme"){
                     value
+                }
+                logo: property(language:$language,name:"j:cmCompanyLogo",){
+                    node: refNode {
+                        id: uuid
+                        type: primaryNodeType{
+                            value:name
+                        }
+                        mixins: mixinTypes{
+                            value:name
+                        }
+                        path
+                    }
                 }
                 modalDescription: property(language:$language, name:"j:modalDescription"){
                     value

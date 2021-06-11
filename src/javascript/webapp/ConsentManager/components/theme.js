@@ -3,31 +3,8 @@ import _merge from 'lodash.merge';
 
 const defaultTheme = {
     geometry: {
-        header: {
-            result: {
-                height: '45px'
-            }
-        },
-        item: {
-            minHeight: '700px'
-        },
-        caption: {
-            // MinHeight:"700px",
-            padding: {
-                lg: '60px',
-                xs: '45px',
-                main: '20px'
-            }
-            // Width:"calc(100% - 120px)",
-        },
-        indicator: {
-            width: '30px',
-            height: '3px',
-            hitAreaHeight: '10px',
-            spacer: '3px'
-        },
-        checkedAnswer: {
-            borderRadius: '10px'
+        logo: {
+            maxWidth: '150px'
         }
     },
     palette: {
@@ -142,6 +119,7 @@ const defaultTheme = {
 
 const getTheme = userTheme => {
     const theme = createMuiTheme(_merge(defaultTheme, userTheme));
+    console.log('return theme :', theme);
     return theme;
 };
 

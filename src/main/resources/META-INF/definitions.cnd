@@ -6,7 +6,8 @@
 [jmix:consentComponent] > jmix:droppableContent mixin
 
 [jmix:consentManagerStaticLabels] mixin
- - j:modalTitle (string) = resourceBundle('label.j_modalTitle') autocreated internationalized mandatory indexed=no
+ - j:cmCompanyLogo (weakreference)  internationalized < jmix:image
+ - j:modalTitle (string) = resourceBundle('label.j_modalTitle') autocreated internationalized indexed=no
  - j:modalDescription (string, richtext[ckeditor.toolbar='Tinny',ckeditor.customConfig='$context/modules/consent-manager/javascript/ckeditor/config/small.js']) = resourceBundle('label.j_modalDescription') autocreated internationalized mandatory indexed=no
  - j:btnReview (string) = resourceBundle('label.consent_btnReview') autocreated internationalized mandatory indexed=no
  - j:btnDenyAll (string) = resourceBundle('label.consent_btnDenyAll') autocreated internationalized mandatory indexed=no
@@ -30,7 +31,7 @@
 // - addStuffBody (string,textarea) nofulltext
 
 [jnt:consentType] > jnt:content, mix:title, jmix:consentComponent, jmix:editorialContent
- - j:description (string) internationalized
+ - j:description (string,richtext[ckeditor.toolbar='Tinny',ckeditor.customConfig='$context/modules/consent-manager/javascript/ckeditor/config/small.js']) internationalized
  - j:event2Triggered (string)
  - j:js2Execute (string) nofulltext
  - j:isMandatory (boolean) = 'false' autocreated

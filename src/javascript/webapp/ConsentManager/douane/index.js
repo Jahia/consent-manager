@@ -23,6 +23,7 @@ const contextValidator = context => {
     }
 
     context.gqlEndpoint = `${context.baseURL}/modules/graphql`;
+    context.filesEndpoint = `${context.baseURL}/files/${context.workspace}`;
     context.gqlVariables = {
         id: context.siteUUID,
         language: context.language,
