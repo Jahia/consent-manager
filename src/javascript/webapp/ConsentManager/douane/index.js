@@ -2,15 +2,10 @@ import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import schema from './lib/schema';
 import {ContextException} from '../exceptions/ContextException';
+import {getGQLWorkspace} from '../misc/utils';
 
 const ajv = new Ajv({useDefaults: true});
 addFormats(ajv);
-
-function getGQLWorkspace(workspace) {
-    return workspace === 'default' ?
-        'EDIT' :
-        workspace.toUpperCase();
-}
 
 // Note the try catch should be done here and a React component should be returned
 const contextValidator = context => {

@@ -42,7 +42,6 @@ const ConsentViewer = props => {
             if (consentNode.id === consent.id) {
                 consentNode.isGranted = !consentNode.isGranted;
             }
-
             return consentNode;
         }));
     };
@@ -52,13 +51,6 @@ const ConsentViewer = props => {
             case: 'TOGGLE_SHOW_DETAILS'
         });
 
-    // Const userConsentGranted = userConsentPreference.consents.reduce((grantedIds, consent) => {
-    //     if (consent.value) {
-    //         grantedIds.push(consent.id);
-    //     }
-    //
-    //     return grantedIds;
-    // }, []);
     const consentsByCategory = consentNodes
         .reduce((items, consent) => {
             if (!Object.prototype.hasOwnProperty.call(items, consent.category)) {
@@ -68,7 +60,7 @@ const ConsentViewer = props => {
             items[consent.category].push(consent);
             return items;
         }, {});
-    console.log('[ConsentViewer] consentsByCategory : ', consentsByCategory);
+    // console.log('[ConsentViewer] consentsByCategory : ', consentsByCategory);
 
     const consents2Display = Object.keys(consentsByCategory)
         .map(category => {
@@ -80,25 +72,6 @@ const ConsentViewer = props => {
                 </List>
             );
         });
-
-    // Const consents2Display = Object.keys(consentsByCategory)
-    //     .map(category => {
-    //         return (
-    //             <section key={category}>
-    //                 <Typography className={classes.categoryTitle} variant="h5">
-    //                     {category}
-    //                 </Typography>
-    //                 <ul className={classes.consentList}>
-    //                     {consentsByCategory[category].map(consent => (
-    //                         <li key={consent.id}>
-    //                             <ConsentDetail consent={consent} handleToggleConsent={handleToggleConsent}/>
-    //                         </li>
-    //                       )
-    //                 )}
-    //                 </ul>
-    //             </section>
-    //         );
-    //     });
 
     return (
         <>

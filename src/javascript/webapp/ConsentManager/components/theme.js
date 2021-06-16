@@ -1,7 +1,7 @@
 import {createMuiTheme} from '@material-ui/core/styles';
 import _merge from 'lodash.merge';
 
-const defaultTheme = {
+const defaultTheme = () => ({
     geometry: {
         logo: {
             maxWidth: '150px'
@@ -115,11 +115,11 @@ const defaultTheme = {
             color: 'primary'
         }
     }
-};
+});
 
 const getTheme = userTheme => {
-    const theme = createMuiTheme(_merge(defaultTheme, userTheme));
-    console.log('return theme :', theme);
+    const targetTheme = defaultTheme();
+    const theme = createMuiTheme(_merge(targetTheme, userTheme));
     return theme;
 };
 

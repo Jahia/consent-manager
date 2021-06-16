@@ -9,6 +9,13 @@ import {Store} from './ConsentManager/store';
 import AjvError from './ConsentManager/components/Error/Ajv';
 import {contextValidator} from './ConsentManager/douane';
 // Import {events} from './ConsentManager/douane/lib/config';
+import {StylesProvider, createGenerateClassName} from '@material-ui/core/styles';
+import {getRandomString} from './ConsentManager/misc/utils';
+
+const generateClassName = createGenerateClassName({
+    // DisableGlobal:true,
+    seed: getRandomString(8, 'aA')
+});
 
 const render = (target, context) => {
     // Note : simply this ?
@@ -35,11 +42,13 @@ const render = (target, context) => {
         });
 
         ReactDOM.render(
-            <Store jContent={context}>
-                <ApolloProvider client={client}>
-                    <App/>
-                </ApolloProvider>
-            </Store>,
+            <StylesProvider generateClassName={generateClassName}>
+                <Store jContent={context}>
+                    <ApolloProvider client={client}>
+                        <App/>
+                    </ApolloProvider>
+                </Store>
+            </StylesProvider>,
             document.getElementById(target)
         );
     } catch (e) {
