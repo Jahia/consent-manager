@@ -60,7 +60,7 @@ const ConsentViewer = props => {
             items[consent.category].push(consent);
             return items;
         }, {});
-    // console.log('[ConsentViewer] consentsByCategory : ', consentsByCategory);
+    // Console.log('[ConsentViewer] consentsByCategory : ', consentsByCategory);
 
     const consents2Display = Object.keys(consentsByCategory)
         .map(category => {

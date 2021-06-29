@@ -249,7 +249,7 @@ const App = props => {
                     }}
                     maxWidth="md"
                 >
-                    <Fade in={open}>
+                    <Fade in={showWrapper}>
                         <div className={classes.paper}>
                             {jContent.languageBundle &&
                             <>
