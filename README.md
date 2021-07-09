@@ -35,6 +35,7 @@ events. The javascript code to deploy is managed in GTM.
   
 When the module is installed, it automatically deploys:
 * a new set of Categories
+  
   <img src="./doc/images/003_contegory.png" width="375px"/>
 
 [comment]: <> (  ![003])
