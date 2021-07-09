@@ -42,6 +42,7 @@ const ConsentViewer = props => {
             if (consentNode.id === consent.id) {
                 consentNode.isGranted = !consentNode.isGranted;
             }
+
             return consentNode;
         }));
     };
@@ -78,12 +79,10 @@ const ConsentViewer = props => {
             {consents2Display}
             <div className={sharedClasses.btnWrapper}>
                 <Button variant="outlined" onClick={handleCancel}>
-                    cancel
-                    {/* {jContent.languageBundle && jContent.languageBundle.btnGrantAll} */}
+                    {manager.config && manager.config.btnCancel}
                 </Button>
                 <Button onClick={handleSavePreference}>
-                    save preference
-                    {/* {jContent.languageBundle && jContent.languageBundle.btnGrantAll} */}
+                    {manager.config && manager.config.btnSavePreference}
                 </Button>
             </div>
         </>

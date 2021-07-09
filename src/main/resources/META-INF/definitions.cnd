@@ -5,30 +5,30 @@
 //jmix:editorialContent
 [jmix:consentComponent] > jmix:droppableContent mixin
 
-[jmix:consentManagerStaticLabels] mixin
- - j:cmCompanyLogo (weakreference)  internationalized < jmix:image
- - j:modalTitle (string) = resourceBundle('label.j_modalTitle') autocreated internationalized indexed=no
- - j:modalDescription (string, richtext[ckeditor.toolbar='Tinny',ckeditor.customConfig='$context/modules/consent-manager/javascript/ckeditor/config/small.js']) = resourceBundle('label.j_modalDescription') autocreated internationalized mandatory indexed=no
+[jmix:consentManagerWebappStaticLabels] mixin
  - j:btnReview (string) = resourceBundle('label.consent_btnReview') autocreated internationalized mandatory indexed=no
  - j:btnDenyAll (string) = resourceBundle('label.consent_btnDenyAll') autocreated internationalized mandatory indexed=no
  - j:btnGrantAll (string) = resourceBundle('label.consent_btnGrantAll') autocreated internationalized mandatory indexed=no
+ - j:btnCancel (string) = resourceBundle('label.consent_btnCancel') autocreated internationalized mandatory indexed=no
+ - j:btnSavePreference (string) = resourceBundle('label.consent_btnSavePreference') autocreated internationalized mandatory indexed=no
 
-[jmix:consentManagerConfiguration] mixin
+
+[jmix:consentManagerWebAppContent] mixin
+ - j:cmCompanyLogo (weakreference)  internationalized < jmix:image
+ - j:modalTitle (string) = resourceBundle('label.j_modalTitle') autocreated internationalized indexed=no
+ - j:modalDescription (string, richtext[ckeditor.toolbar='Tinny',ckeditor.customConfig='$context/modules/consent-manager/javascript/ckeditor/config/small.js']) = resourceBundle('label.j_modalDescription') autocreated internationalized mandatory indexed=no
+
+[jmix:consentManagerWebAppTechConfig] mixin
  - j:webappTheme (string) indexed=no
 
-[jmix:consentManager] > jmix:consentManagerConfiguration, jmix:consentManagerStaticLabels mixin
+[jmix:consentManager] mixin
  extends = jnt:virtualsite
  itemtype = options
+// - j:consentNodes (weakreference,choicelist[nodes='$currentSite/contents/consent-manager/consents;jnt:consentType']) multiple < jnt:consentType
  - j:consentNodes (weakreference) multiple < jnt:consentType
  - j:cookieDuration (long)
-// - j:consentNode2 (weakreference,choicelist[nodes='$currentSite/contents/consents;jnt:consentType']) multiple < jnt:consentType
-// - j:consentNode3 (weakreference,choicelist[nodes='$site-key/contents/consents;jnt:consentType']) multiple < jnt:consentType
-// - j:consentNode5 (string)
-// - j:consentNode6 (string) multiple
-// - addStuffHeadTop (string,textarea) nofulltext
-// - addStuffHead (string,textarea) nofulltext
-// - addStuffBodyTop (string,textarea) nofulltext
-// - addStuffBody (string,textarea) nofulltext
+// - j:webAppConfig (weakreference,choicelist[nodes='$currentSite/contents/consent-manager;jnt:consentManagerWebAppConfig']) < jnt:consentManagerWebAppConfig
+ - j:webAppConfig (weakreference) < jnt:consentManagerWebAppConfig
 
 [jnt:consentType] > jnt:content, mix:title, jmix:consentComponent, jmix:editorialContent
  - j:description (string,richtext[ckeditor.toolbar='Tinny',ckeditor.customConfig='$context/modules/consent-manager/javascript/ckeditor/config/small.js']) internationalized
@@ -37,3 +37,5 @@
  - j:isMandatory (boolean) = 'false' autocreated
  - j:category (weakreference)
  - j:defaultState (string,choicelist[resourceBundle]) = 'denied' autocreated < 'denied', 'granted'
+
+[jnt:consentManagerWebAppConfig] > jnt:content, jmix:consentComponent, jmix:editorialContent, jmix:consentManagerWebAppContent, jmix:consentManagerWebappStaticLabels, jmix:consentManagerWebAppTechConfig

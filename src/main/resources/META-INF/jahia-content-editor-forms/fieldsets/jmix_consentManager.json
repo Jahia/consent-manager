@@ -11,6 +11,17 @@
           "value" : "consentNode"
         }
       ]
+    },
+    {
+      "name": "j:webAppConfig",
+      "multiple": true,
+      "selectorType": "Picker",
+      "selectorOptions":[
+        {
+          "name": "type",
+          "value" : "configNode"
+        }
+      ]
     }
   ]
 }

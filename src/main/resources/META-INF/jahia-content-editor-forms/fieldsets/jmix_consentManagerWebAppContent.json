@@ -1,5 +1,5 @@
 {
-  "name": "jmix:consentManagerStaticLabels",
+  "name": "jmix:consentManagerWebAppContent",
   "fields": [
     {
       "name": "j:cmCompanyLogo",

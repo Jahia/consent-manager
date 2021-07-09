@@ -57,7 +57,7 @@
     <groupId>org.jahia.se.modules</groupId>
     <artifactId>consent-manager</artifactId>
     <name>Consent Manager</name>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <description>This is the custom module (Consent Manager) for running on a Jahia server.</description>
 

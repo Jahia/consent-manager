@@ -1,5 +1,5 @@
 {
-  "name": "jmix:consentManagerConfiguration",
+  "name": "jmix:consentManagerWebAppTechConfig",
   "fields": [
     {
       "name": "j:webappTheme",

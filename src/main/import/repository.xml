@@ -9,32 +9,92 @@
          <portlets jcr:primaryType="jnt:portletFolder"/>
          <files jcr:primaryType="jnt:folder"/>
          <contents jcr:primaryType="jnt:contentFolder">
-            <consents j:contributeTypes="jnt:consentType"
-                      j:editableInContribution="true"
-                      jcr:mixinTypes="jmix:contributeMode"
-                      jcr:primaryType="jnt:contentFolder">
+            <consent-manager j:contributeTypes="jnt:consentManagerWebAppConfig"
+                             j:editableInContribution="true"
+                             jcr:mixinTypes="jmix:contributeMode"
+                             jcr:primaryType="jnt:contentFolder">
                <j:translation_en jcr:language="en"
+                                 jcr:mixinTypes="mix:title"
                                  jcr:primaryType="jnt:translation"
-                                 jcr:title="consents"/>
+                                 jcr:title="consent-manager"/>
                <j:translation_de jcr:language="de"
+                                 jcr:mixinTypes="mix:title"
                                  jcr:primaryType="jnt:translation"
-                                 jcr:title="consents"/>
+                                 jcr:title="consent-manager"/>
                <j:translation_pt jcr:language="pt"
+                                 jcr:mixinTypes="mix:title"
                                  jcr:primaryType="jnt:translation"
-                                 jcr:title="consents"/>
+                                 jcr:title="consent-manager"/>
                <j:translation_it jcr:language="it"
+                                 jcr:mixinTypes="mix:title"
                                  jcr:primaryType="jnt:translation"
-                                 jcr:title="consents"/>
+                                 jcr:title="consent-manager"/>
                <j:translation_fr jcr:language="fr"
+                                 jcr:mixinTypes="mix:title"
                                  jcr:primaryType="jnt:translation"
-                                 jcr:title="consentements"/>
+                                 jcr:title="consent-manager"/>
                <j:translation_es jcr:language="es"
+                                 jcr:mixinTypes="mix:title"
                                  jcr:primaryType="jnt:translation"
-                                 jcr:title="consents"/>
+                                 jcr:title="consent-manager"/>
                <j:translation_de_DE jcr:language="de_DE"
+                                    jcr:mixinTypes="mix:title"
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="consent-manager"/>
+               <consents j:contributeTypes="jnt:consentType"
+                         j:editableInContribution="true"
+                         jcr:mixinTypes="jmix:contributeMode"
+                         jcr:primaryType="jnt:contentFolder">
+                  <j:translation_en jcr:language="en"
+                                    jcr:mixinTypes="mix:title"
                                     jcr:primaryType="jnt:translation"
                                     jcr:title="consents"/>
-            </consents>
+                  <j:translation_de jcr:language="de"
+                                    jcr:mixinTypes="mix:title"
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="consents"/>
+                  <j:translation_pt jcr:language="pt"
+                                    jcr:mixinTypes="mix:title"
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="consents"/>
+                  <j:translation_it jcr:language="it"
+                                    jcr:mixinTypes="mix:title"
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="consents"/>
+                  <j:translation_fr jcr:language="fr"
+                                    jcr:mixinTypes="mix:title"
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="consents"/>
+                  <j:translation_es jcr:language="es"
+                                    jcr:mixinTypes="mix:title"
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="consents"/>
+                  <j:translation_de_DE jcr:language="de_DE"
+                                       jcr:mixinTypes="mix:title"
+                                       jcr:primaryType="jnt:translation"
+                                       jcr:title="consents"/>
+               </consents>
+               <consent-manager-webapp-configura jcr:primaryType="jnt:consentManagerWebAppConfig">
+                  <j:translation_en j:btnCancel="Cancel"
+                                    j:btnDenyAll="Continue without consent"
+                                    j:btnGrantAll="Consent"
+                                    j:btnReview="Manage options"
+                                    j:btnSavePreference="Save preference"
+                                    j:modalDescription="&lt;p&gt;Before to continue on the website you must give us your consent about the cookie management&lt;/p&gt;&#xA;"
+                                    j:modalTitle="Consent manager"
+                                    jcr:language="en"
+                                    jcr:primaryType="jnt:translation"/>
+                  <j:translation_fr j:btnCancel="Annuler"
+                                    j:btnDenyAll="Continuer sans accepter"
+                                    j:btnGrantAll="Accepter"
+                                    j:btnReview="Personnaliser mes choix"
+                                    j:btnSavePreference="Sauvegarder"
+                                    j:modalDescription="Avant de continuer sur le site vous devez nous donner vos préférences concernant la gestion des cookies"
+                                    j:modalTitle="Gestionnaire de consentement"
+                                    jcr:language="fr"
+                                    jcr:primaryType="jnt:translation"/>
+               </consent-manager-webapp-configura>
+            </consent-manager>
          </contents>
          <templates j:rootTemplatePath="/base" jcr:primaryType="jnt:templatesFolder">
             <files jcr:primaryType="jnt:folder"/>
@@ -42,22 +102,4 @@
          </templates>
       </consent-manager>
    </modules>
-  <sites jcr:primaryType="jnt:virtualsitesFolder">
-      <systemsite jcr:primaryType="jnt:virtualsite">
-         <categories jcr:primaryType="jnt:category">
-            <consent-manager jcr:primaryType="jnt:category">
-               <j:translation_en jcr:language="en" jcr:primaryType="jnt:translation" jcr:title="Consent Manager"/>
-               <marketing jcr:primaryType="jnt:category">
-                  <j:translation_en jcr:language="en" jcr:primaryType="jnt:translation" jcr:title="Marketing"/>
-               </marketing>
-               <advertising jcr:primaryType="jnt:category">
-                  <j:translation_en jcr:language="en" jcr:primaryType="jnt:translation" jcr:title="Advertising"/>
-               </advertising>
-               <mandatory jcr:primaryType="jnt:category">
-                  <j:translation_en jcr:language="en" jcr:primaryType="jnt:translation" jcr:title="Mandatory"/>
-               </mandatory>
-            </consent-manager>
-         </categories>
-      </systemsite>
-   </sites>
 </content>

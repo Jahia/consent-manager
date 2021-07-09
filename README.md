@@ -38,30 +38,104 @@ When the module is installed, it automatically deploys:
   <img src=".doc/images/003_contegory.png" width="375px"/>
 
 [comment]: <> (  ![003])
-* a **consent** folder in jContent -> Content Folders
-* a new configuration point at the Site level
-* a new content type `jnt:consentType` 
+* a set up entry point at the Site level
+* two new content types `jnt:consentType` and `jnt:consentManagerWebAppConfig` 
 * a React application
+* a filter to deploy automatically the React application in the HTML pages of your web project
+* a **consent-manager** folder in *jContent/Content Folders*. This folder contains
+  * a React application configuration content, used by contributor to write the static
+    content used by the webapp.
+  * a **consents** folder used to store the consent content.
+    ![002]
 
 ### Create consent and enable the manager
-Now the plateform is ready to create consent content and enable the consent manager
+Now the platform is ready to create consent content and enable the consent manager
 in your web project
 #### Create new consent
 *Consent* content will be consumed by the React webapp through GraphQl call,
 so the best place to create headless content is in jContent.
-As explained above, the module hase created a dedicated **consents** directory in
-`jContent/Content Folders/contents`. This folder is the place to create new consents.
 
-![002]
+As explained above, the module hase created a dedicated **consents** directory in
+`jContent/Content Folders/consent-manager/contents`. This folder is the place to create new consents.
+
+![002.1]
+
+##### Javascript to load if consent is granted
+The consent content is used to load (consent is granted) or not (consent is denied)
+a javascript code which uses cookie information stored in the visitor browser.
+There are two ways to provide the javascript code which will be loaded:
+* Use a Google Tag Manager (GTM) trigger event.
+* Write the javascript code to load directly in the consent content.
+
+![004]
+
+###### Google Tag Manager
+The consent content form expose the property **Event to trigger** which is used to store the
+name of a GTM trigger.
+
+In the image above, the value *jahia-cm-google-analytics* is filled.
+
+This value is the name of a trigger create in GTM as shown in the image below.
+
+![005]
+
+If the property **Event to trigger** is filled, the consent manager webapp use the GTM 
+API to fire the trigger using this name.
+
+> Note: to load the GTM API in your site you can use the [addstuff][jahia:AddStuff] module.
+
+Then, the GTM trigger load the javascript code associated. In the example below the code loaded
+write a message to the javascript console of your browser.
+
+![006]
+
+###### Write your code in the consent
+If you don't want to use GTM, you can directly write the code launched when 
+the consent will be granted. This code is most of the time provided by the service you want
+to include in your page e.g. Google Analytics, Criteo... and you just have to copy/past it.
+
+> Note: if the **Event to trigger** and **Javascript to execute** field are both filled, this
+> is the event which will be used to load the javascript code.
+
 
 #### Enable the consent manager for you website
-When you have a pool of consent ready to use, you must enable the **Consent Manager**
-on top of your web project.
-So in Page composer right-click on the name of your project and select **Edit**.
-Then scroll down until the Option section and enable the **Consent Manager**.
+Now you have a pool of consents ready to use, the next step is to set up the **Consent Manager**
+for your web project:
+* In Page composer right-click on the name of your project and select **Edit**.
+  ![007]
+* Then scroll down and switch on **Consent Manager**. Three field appears :
+  * the first one is used to select the consent content you want to use in your website
+  * the second one is the expiration date of the consent (not used for now)
+  * the third one the configuration node which contains static content for the React application
+    (as explained above a default configuration is provided)
+![001]
+* Finally, save and publish all your content, including the consent-manager folder
 
+In the live mode you should see the manager in action the first time you launch a web page
+![010]
 
 ### Interact with the React application
+Once visitors have given their consents, they can review then at anytime. For that, the website 
+must offer the capability to see the review panel.
+
+Also, the React application provide a function to open a review panel `openConsentDetails()`.
+This function is available in the `window` object inside an API object named `_jcm_`.
+You can use the following code to open the review panel from your site template.
+
+```html
+<a onclick="window._jcm_.openConsentDetails()" >Review your consent</a>
+```
+
+Clicking the button "Review your consent" should have this effect :
+![020]
+
+### User preference storage
+The user preference are stored in the `local storage` database of the user's browser with a key
+like this : `_jcm_ucp_<key id>`. There is one storage per web project.
+
+![030]
+
+If jExperience is available, a consent event is also triggered.
 
 [000]: doc/images/000_consentModule.png
 [000.1]: doc/images/000.1_consentModule.png
@@ -78,3 +152,6 @@ Then scroll down until the Option section and enable the **Consent Manager**.
 [010]: doc/images/010_consent.png
 [020]: doc/images/020_reviewDetails.png
 [030]: doc/images/030_localStorage.png
+
+
+[jahia:AddStuff]: https://store.jahia.com/module/addstuff

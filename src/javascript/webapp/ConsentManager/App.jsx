@@ -85,19 +85,19 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const initLanguageBundle = managerData => {
-    const keys = [
-        'modalTitle',
-        'modalDescription',
-        'btnReview',
-        'btnDenyAll',
-        'btnGrantAll'
-    ];
-    return keys.reduce((bundle, key) => {
-        bundle[key] = get(managerData, `${key}.value`);
-        return bundle;
-    }, {});
-};
+// Const initLanguageBundle = managerData => {
+//     const keys = [
+//         'modalTitle',
+//         'modalDescription',
+//         'btnReview',
+//         'btnDenyAll',
+//         'btnGrantAll'
+//     ];
+//     return keys.reduce((bundle, key) => {
+//         bundle[key] = get(managerData, `${key}.value`);
+//         return bundle;
+//     }, {});
+// };
 
 const App = props => {
     const classes = useStyles(props);
@@ -138,7 +138,7 @@ const App = props => {
             console.debug('App consent-manager init Set Data!');
 
             const managerData = get(data, 'response.site', {});
-            jContent.languageBundle = initLanguageBundle(managerData);
+            // JContent.languageBundle = initLanguageBundle(managerData);
 
             dispatch({
                 case: 'DATA_READY',
@@ -195,25 +195,25 @@ const App = props => {
     };
 
     const getTitle = () => {
-        if (manager.logo) {
+        if (manager.config.logo) {
             return (
                 <div className={classes.logo}>
                     <img className=""
                          id="transition-modal-title"
-                         src={`${jContent.filesEndpoint}${encodeURI(manager.logo)}`}
+                         src={`${jContent.filesEndpoint}${encodeURI(manager.config.logo)}`}
                          alt={jContent.siteName}/>
                 </div>
 
             );
         }
 
-        if (jContent.languageBundle.modalTitle) {
+        if (manager.config.modalTitle) {
             return (
                 <Typography className={classes.consentTitle}
                             variant="h3"
                             id="transition-modal-title"
                 >
-                    {jContent.languageBundle.modalTitle}
+                    {manager.config.modalTitle}
                 </Typography>
             );
         }
@@ -251,7 +251,7 @@ const App = props => {
                 >
                     <Fade in={showWrapper}>
                         <div className={classes.paper}>
-                            {jContent.languageBundle &&
+                            {manager.config &&
                             <>
 
                                 <Link component="button"
@@ -260,7 +260,7 @@ const App = props => {
                                       className={classes.denyAllLink}
                                       onClick={handleDenyAll}
                                 >
-                                    {jContent.languageBundle && jContent.languageBundle.btnDenyAll}
+                                    {manager.config && manager.config.btnDenyAll}
                                     <ArrowRightAltIcon/>
                                 </Link>
                                     {/* continuer sans accepter */}
@@ -271,16 +271,16 @@ const App = props => {
                                     id="transition-modal-description"
                                     component="div"
                                     // ClassName={classes.description}
-                                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(jContent.languageBundle.modalDescription, {ADD_ATTR: ['target']})}}/>
+                                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(manager.config.modalDescription, {ADD_ATTR: ['target']})}}/>
                                 <div className={sharedClasses.btnWrapper}>
                                     <Button variant="outlined" onClick={handleReview}>
-                                        {jContent.languageBundle && jContent.languageBundle.btnReview}
+                                        {manager.config && manager.config.btnReview}
                                     </Button>
                                     {/* <Button onClick={handleDenyAll}> */}
-                                    {/*    {jContent.languageBundle && jContent.languageBundle.btnDenyAll} */}
+                                    {/*    {manager.config && manager.config.btnDenyAll} */}
                                     {/* </Button> */}
                                     <Button onClick={handleGrantAll}>
-                                        {jContent.languageBundle && jContent.languageBundle.btnGrantAll}
+                                        {manager.config && manager.config.btnGrantAll}
                                     </Button>
                                 </div>
                             </>}
@@ -296,7 +296,7 @@ const App = props => {
                     <div className={classes.sideContent}>
                         <Typography className={classes.sideContentTitle} variant="h4">
                             Consent details
-                            {/* {jContent.languageBundle.modalTitle} */}
+                            {/* {manager.config.modalTitle} */}
                         </Typography>
 
                         <ConsentViewer/>

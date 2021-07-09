@@ -42,36 +42,46 @@ const GET_CONSENTS = gql`
                 consentDuration: property(name:"j:cookieDuration"){
                     value
                 }
-                userTheme: property(name:"j:webappTheme"){
-                    value
-                }
-                logo: property(language:$language,name:"j:cmCompanyLogo",){
-                    node: refNode {
-                        id: uuid
-                        type: primaryNodeType{
-                            value:name
+                consentManagerConfig: property(name:"j:webAppConfig"){
+                    value: refNode {
+                        userTheme: property(name:"j:webappTheme"){
+                            value
                         }
-                        mixins: mixinTypes{
-                            value:name
+                        logo: property(language:$language,name:"j:cmCompanyLogo",){
+                            node: refNode {
+                                id: uuid
+                                type: primaryNodeType{
+                                    value:name
+                                }
+                                mixins: mixinTypes{
+                                    value:name
+                                }
+                                path
+                            }
                         }
-                        path
+                        modalDescription: property(language:$language, name:"j:modalDescription"){
+                            value
+                        },
+                        modalTitle: property(language:$language, name:"j:modalTitle"){
+                            value
+                        },
+                        btnReview: property(language:$language, name:"j:btnReview"){
+                            value
+                        },
+                        btnDenyAll: property(language:$language, name:"j:btnDenyAll"){
+                            value
+                        },
+                        btnGrantAll: property(language:$language, name:"j:btnGrantAll"){
+                            value
+                        },
+                        btnCancel: property(language:$language, name:"j:btnCancel"){
+                            value
+                        },
+                        btnSavePreference: property(language:$language, name:"j:btnSavePreference"){
+                            value
+                        }
                     }
                 }
-                modalDescription: property(language:$language, name:"j:modalDescription"){
-                    value
-                },
-                modalTitle: property(language:$language, name:"j:modalTitle"){
-                    value
-                },
-                btnReview: property(language:$language, name:"j:btnReview"){
-                    value
-                },
-                btnDenyAll: property(language:$language, name:"j:btnDenyAll"){
-                    value
-                },
-                btnGrantAll: property(language:$language, name:"j:btnGrantAll"){
-                    value
-                },
             }
         }
     }
