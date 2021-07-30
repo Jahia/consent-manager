@@ -57,9 +57,9 @@
     <groupId>org.jahia.se.modules</groupId>
     <artifactId>consent-manager</artifactId>
     <name>Consent Manager</name>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <description>This is the custom module (Consent Manager) for running on a Jahia server.</description>
+    <description>Manage Consent from your Jahia server.</description>
 
     <scm>
         <connection>scm:git:git@github.com:Jahia/consent-manager.git</connection>
