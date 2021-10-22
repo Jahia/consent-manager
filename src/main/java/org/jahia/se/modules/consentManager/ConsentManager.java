@@ -38,11 +38,6 @@ public class ConsentManager extends AbstractFilter {
 
     @Override
     public String prepare(RenderContext renderContext, Resource resource, RenderChain chain) throws Exception {
-        //Disable the filter in case we are in Content Editor preview.
-        if(renderContext.getRequest().getAttribute("ce_preview") != null) {
-            return super.prepare(renderContext, resource, chain);
-        }
-
         JCRSiteNode site = renderContext.getSite();
         String siteUUID = site.getIdentifier();
         String jsid = siteUUID.replace('-','_');
@@ -107,7 +102,11 @@ public class ConsentManager extends AbstractFilter {
     public String execute(String previousOut, RenderContext renderContext, Resource resource, RenderChain chain) throws Exception {
         String output = super.execute(previousOut, renderContext, resource, chain);
         boolean hasConsentManagerEnabled = renderContext.getSite().isNodeType(CONSENT_MANAGER_MIX);
-        if(hasConsentManagerEnabled)
+
+        //Disable the filter in case we are in Content Editor preview.
+        boolean isCEPreview = renderContext.getRequest().getAttribute("ce_preview") != null;
+
+        if(hasConsentManagerEnabled && !isCEPreview)
             output = enhanceOutput(output);
 
         return output;

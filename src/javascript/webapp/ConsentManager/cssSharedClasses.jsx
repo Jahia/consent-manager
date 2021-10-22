@@ -4,7 +4,7 @@ export default makeStyles(theme => ({
     btnWrapper: {
         display: 'flex',
         justifyContent: 'center',
-        padding: theme.spacing(2, 0, 1),
+        margin: theme.spacing(3, 0, 1),
         // PaddingBottom: theme.spacing(1),
         '& button': {
             marginRight: theme.spacing(1),

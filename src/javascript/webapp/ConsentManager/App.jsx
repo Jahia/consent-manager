@@ -67,11 +67,19 @@ const useStyles = makeStyles(theme => ({
     sideContentTitle: {
         marginBottom: theme.spacing(3)
     },
-    denyAllLink: {
-        float: 'right'
+    // DenyAllLink: {
+    //     float: 'right'
+    // },
+    btnHeaderWrapper: {
+        display: 'flex',
+        justifyContent: 'right',
+        marginBottom: theme.spacing(3)
     },
-    consentTitle: {
-        clear: 'both'
+    consentModalTitle: {
+        marginBottom: theme.spacing(3)
+    },
+    consentModalDescription: {
+        padding: theme.spacing(2, 0)
     },
     logo: {
         clear: 'both',
@@ -209,7 +217,7 @@ const App = props => {
 
         if (manager.config.modalTitle) {
             return (
-                <Typography className={classes.consentTitle}
+                <Typography className={classes.consentModalTitle}
                             variant="h3"
                             id="transition-modal-title"
                 >
@@ -219,7 +227,7 @@ const App = props => {
         }
 
         return (
-            <Typography className={classes.consentTitle}
+            <Typography className={classes.consentModalTitle}
                         variant="h3"
                         id="transition-modal-title"
             >
@@ -253,25 +261,26 @@ const App = props => {
                         <div className={classes.paper}>
                             {manager.config &&
                             <>
-
-                                <Link component="button"
-                                      variant="body1"
-                                      color="primary"
-                                      className={classes.denyAllLink}
-                                      onClick={handleDenyAll}
-                                >
-                                    {manager.config && manager.config.btnDenyAll}
-                                    <ArrowRightAltIcon/>
-                                </Link>
-                                    {/* continuer sans accepter */}
+                                <div className={classes.btnHeaderWrapper}>
+                                    <Link component="button"
+                                          variant="body1"
+                                          color="primary"
+                                          // ClassName={classes.denyAllLink}
+                                          onClick={handleDenyAll}
+                                    >
+                                        {manager.config && manager.config.btnDenyAll}
+                                        <ArrowRightAltIcon/>
+                                    </Link>
+                                </div>
 
                                 {getTitle()}
 
                                 <Typography
                                     id="transition-modal-description"
                                     component="div"
-                                    // ClassName={classes.description}
+                                    className={classes.consentModalDescription}
                                     dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(manager.config.modalDescription, {ADD_ATTR: ['target']})}}/>
+
                                 <div className={sharedClasses.btnWrapper}>
                                     <Button variant="outlined" onClick={handleReview}>
                                         {manager.config && manager.config.btnReview}
@@ -295,8 +304,7 @@ const App = props => {
                 >
                     <div className={classes.sideContent}>
                         <Typography className={classes.sideContentTitle} variant="h4">
-                            Consent details
-                            {/* {manager.config.modalTitle} */}
+                            {manager.config && manager.config.sideModalTitle}
                         </Typography>
 
                         <ConsentViewer/>
@@ -306,40 +314,6 @@ const App = props => {
             </div>
         </ThemeProvider>
     );
-
-    // Return (
-    //     <>
-    //         {loadUserConsents()}
-    //         {!userConsentPreference.isActive &&
-    //         <div className={`_jcm_wrapper_ ${showWrapper ? 'active' : ''}`}>
-    //             <div className="_jcm_main_">
-    //                 <a className="btn" value="">Continuer sans accepter</a>
-    //                 <h1>Votre consentement</h1>
-    //                 <div className="text-info">
-    //                     <p>La nouvelle</p>
-    //                 </div>
-    //
-    //                 <input type="button" value="Personnaliser mes choix" onClick={handleReview}/>
-    //                 <input type="button" value="Tout refuser" onClick={handleDenyAll}/>
-    //                 <input type="button" value="Tout accepter" onClick={handleGrantAll}/>
-    //
-    //                 <ul>
-    //                     {consentList}
-    //                 </ul>
-    //             </div>
-    //         </div>}
-    //         <div className={`_jcm_side-wrapper ${showSideDetails ? 'active' : ''}`}>
-    //             <div className="_jcm_side-content">
-    //                 bla bla, alors tu acceptes ?
-    //                 {
-    //
-    //                 }
-    //                 <ConsentViewer/>
-    //                 {/* details about each cookie */}
-    //             </div>
-    //         </div>
-    //     </>
-    // );
 };
 
 App.propTypes = {};

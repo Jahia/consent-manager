@@ -91,6 +91,7 @@
                                     j:btnSavePreference="Sauvegarder"
                                     j:modalDescription="Avant de continuer sur le site vous devez nous donner vos préférences concernant la gestion des cookies"
                                     j:modalTitle="Gestionnaire de consentement"
+                                    j:sideModalTitle="label.j_sideModalTitle"
                                     jcr:language="fr"
                                     jcr:primaryType="jnt:translation"/>
                </consent-manager-webapp-configura>

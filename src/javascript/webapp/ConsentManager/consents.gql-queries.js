@@ -65,6 +65,9 @@ const GET_CONSENTS = gql`
                         modalTitle: property(language:$language, name:"j:modalTitle"){
                             value
                         },
+                        sideModalTitle: property(language:$language, name:"j:sideModalTitle"){
+                            value
+                        },
                         btnReview: property(language:$language, name:"j:btnReview"){
                             value
                         },

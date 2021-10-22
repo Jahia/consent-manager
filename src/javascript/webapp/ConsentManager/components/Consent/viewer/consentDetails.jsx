@@ -72,33 +72,6 @@ const ConsentDetail = ({consent, handleToggleConsent}) => {
                 </ListItemSecondaryAction>}
         </ListItem>
     );
-    // Return (
-    //     <>
-    //         <Typography variant="h6" color="primary">
-    //             {consent.name}
-    //         </Typography>
-    //         <Typography
-    //             component="div"
-    //             variant="body2"
-    //             // ClassName={classes.description}
-    //             dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(consent.description, {ADD_ATTR: ['target']})}}/>
-    //         {!consent.isMandatory &&
-    //         <Typography component="div">
-    //             <Grid container component="label" alignItems="center" spacing={1}>
-    //                 <Grid item>Off</Grid>
-    //                 <Grid item>
-    //                     <AntSwitch
-    //                         name="checkedC"
-    //                         checked={consent.isMandatory ? consent.isMandatory : consent.isGranted}
-    //                         // Disabled={consent.isMandatory}
-    //                         onChange={() => handleToggleConsent(consent)}
-    //                     />
-    //                 </Grid>
-    //                 <Grid item>On</Grid>
-    //             </Grid>
-    //         </Typography>}
-    //     </>
-    // );
 };
 
 ConsentDetail.propTypes = {
