@@ -74,7 +74,7 @@
                                        jcr:primaryType="jnt:translation"
                                        jcr:title="consents"/>
                </consents>
-               <consent-manager-webapp-configura jcr:primaryType="jnt:consentManagerWebAppConfig">
+               <default-webapp-config jcr:primaryType="jnt:consentManagerWebAppConfig">
                   <j:translation_en j:btnCancel="Cancel"
                                     j:btnDenyAll="Continue without consent"
                                     j:btnGrantAll="Consent"
@@ -82,8 +82,10 @@
                                     j:btnSavePreference="Save preference"
                                     j:modalDescription="&lt;p&gt;Before to continue on the website you must give us your consent about the cookie management&lt;/p&gt;&#xA;"
                                     j:modalTitle="Consent manager"
+                                    j:sideModalTitle="Consents review"
                                     jcr:language="en"
-                                    jcr:primaryType="jnt:translation"/>
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="Default Configuration"/>
                   <j:translation_fr j:btnCancel="Annuler"
                                     j:btnDenyAll="Continuer sans accepter"
                                     j:btnGrantAll="Accepter"
@@ -91,10 +93,55 @@
                                     j:btnSavePreference="Sauvegarder"
                                     j:modalDescription="Avant de continuer sur le site vous devez nous donner vos préférences concernant la gestion des cookies"
                                     j:modalTitle="Gestionnaire de consentement"
-                                    j:sideModalTitle="label.j_sideModalTitle"
+                                    j:sideModalTitle="Revue des consentements"
                                     jcr:language="fr"
-                                    jcr:primaryType="jnt:translation"/>
-               </consent-manager-webapp-configura>
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="Configuration par défaut"/>
+                  <j:translation_de j:btnCancel="Cancel"
+                                    j:btnDenyAll="Continue without consent"
+                                    j:btnGrantAll="Consent"
+                                    j:btnReview="Manage options"
+                                    j:btnSavePreference="Save preference"
+                                    j:modalDescription="&lt;p&gt;Before to continue on the website you must give us your consent about the cookie management&lt;/p&gt;&#xA;"
+                                    j:modalTitle="Consent manager"
+                                    j:sideModalTitle="Consents review"
+                                    jcr:language="de"
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="Default Configuration"/>
+                  <j:translation_pt j:btnCancel="Cancel"
+                                    j:btnDenyAll="Continue without consent"
+                                    j:btnGrantAll="Consent"
+                                    j:btnReview="Manage options"
+                                    j:btnSavePreference="Save preference"
+                                    j:modalDescription="&lt;p&gt;Before to continue on the website you must give us your consent about the cookie management&lt;/p&gt;&#xA;"
+                                    j:modalTitle="Consent manager"
+                                    j:sideModalTitle="Consents review"
+                                    jcr:language="pt"
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="Default Configuration"/>
+                  <j:translation_it j:btnCancel="Cancel"
+                                    j:btnDenyAll="Continue without consent"
+                                    j:btnGrantAll="Consent"
+                                    j:btnReview="Manage options"
+                                    j:btnSavePreference="Save preference"
+                                    j:modalDescription="&lt;p&gt;Before to continue on the website you must give us your consent about the cookie management&lt;/p&gt;&#xA;"
+                                    j:modalTitle="Consent manager"
+                                    j:sideModalTitle="Consents review"
+                                    jcr:language="it"
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="Default Configuration"/>
+                  <j:translation_es j:btnCancel="Cancel"
+                                    j:btnDenyAll="Continue without consent"
+                                    j:btnGrantAll="Consent"
+                                    j:btnReview="Manage options"
+                                    j:btnSavePreference="Save preference"
+                                    j:modalDescription="&lt;p&gt;Before to continue on the website you must give us your consent about the cookie management&lt;/p&gt;&#xA;"
+                                    j:modalTitle="Consent manager"
+                                    j:sideModalTitle="Consents review"
+                                    jcr:language="es"
+                                    jcr:primaryType="jnt:translation"
+                                    jcr:title="Default Configuration"/>
+               </default-webapp-config>
             </consent-manager>
          </contents>
          <templates j:rootTemplatePath="/base" jcr:primaryType="jnt:templatesFolder">

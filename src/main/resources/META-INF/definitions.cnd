@@ -39,4 +39,4 @@
  - j:category (weakreference)
  - j:defaultState (string,choicelist[resourceBundle]) = 'denied' autocreated < 'denied', 'granted'
 
-[jnt:consentManagerWebAppConfig] > jnt:content, jmix:consentComponent, jmix:editorialContent, jmix:consentManagerWebAppContent, jmix:consentManagerWebappStaticLabels, jmix:consentManagerWebAppTechConfig
+[jnt:consentManagerWebAppConfig] > jnt:content, jmix:consentComponent, jmix:editorialContent, jmix:consentManagerWebAppContent, jmix:consentManagerWebappStaticLabels, jmix:consentManagerWebAppTechConfig, mix:title
