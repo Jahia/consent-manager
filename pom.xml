@@ -9,7 +9,7 @@
     <groupId>org.jahia.se.modules</groupId>
     <artifactId>consent-manager</artifactId>
     <name>Consent Manager</name>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <description>Manage Consent from your Jahia server.</description>
 
@@ -17,7 +17,7 @@
         <connection>scm:git:git@github.com:Jahia/consent-manager.git</connection>
         <developerConnection>scm:git:git@github.com:Jahia/consent-manager.git</developerConnection>
         <url>https://github.com/Jahia/consent-manager</url>
-      <tag>consent-manager-1.0.1</tag>
+      <tag>HEAD</tag>
   </scm>
     <properties>
         <yarn.arguments>build:production</yarn.arguments>
