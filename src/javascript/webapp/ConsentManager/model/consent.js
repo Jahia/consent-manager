@@ -2,7 +2,7 @@ import get from 'lodash.get';
 import {consentStatus} from '../douane/lib/config';
 
 export default function (consentData) {
-    console.log('[model-consent] consentData: ', consentData);
+    console.debug('[model-consent] consentData: ', consentData);
 
     const defaultState = get(consentData, 'defaultState.value', 'denied');
     const isGranted = defaultState === consentStatus.GRANTED;

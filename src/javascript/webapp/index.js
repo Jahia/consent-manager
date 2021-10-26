@@ -8,7 +8,6 @@ import {ApolloProvider} from '@apollo/react-hooks';
 import {Store} from './ConsentManager/store';
 import AjvError from './ConsentManager/components/Error/Ajv';
 import {contextValidator} from './ConsentManager/douane';
-// Import {events} from './ConsentManager/douane/lib/config';
 import {StylesProvider, createGenerateClassName} from '@material-ui/core/styles';
 import {getRandomString} from './ConsentManager/misc/utils';
 
@@ -18,16 +17,6 @@ const generateClassName = createGenerateClassName({
 });
 
 const render = (target, context) => {
-    // Note : simply this ?
-    // const openConsentDetails = elem => {
-    //     const event = new Event(events.TOGGLE_SHOW_DETAILS, {bubbles: true});
-    //     elem.dispatchEvent(event);
-    // };
-    //
-    // window._jcm_ = {
-    //     openConsentDetails
-    // };
-
     try {
         context = contextValidator(context);
 

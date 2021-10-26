@@ -1,5 +1,4 @@
 import React from 'react'; // UseEffect,useContext
-// import PropTypes from 'prop-types';
 import {useQuery} from '@apollo/react-hooks';
 import DOMPurify from 'dompurify';
 import get from 'lodash.get';
@@ -8,8 +7,6 @@ import {GET_CONSENTS} from './consents.gql-queries';
 import ConsentLoader from './components/Consent/Loader';
 import ConsentViewer from './components/Consent/Viewer';
 import {syncTracker} from './unomi/tracker';
-// Import {events} from './douane/lib/config';
-
 import classnames from 'clsx';
 import {Button, Typography, Modal, Backdrop, Fade, Link} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
@@ -127,14 +124,11 @@ const App = props => {
     });
 
     React.useEffect(() => {
-        // Window.addEventListener(events.TOGGLE_SHOW_DETAILS, handleReview);
-
         // Init unomi tracker
         if (jContent.gqlVariables.workspace === 'LIVE' && !cxs) {
             syncTracker({
                 scope: jContent.siteKey,
                 url: jContent.cdpEndPoint,
-                // SessionId:`qZ-${quizKey}-${Date.now()}`,
                 dispatch
             });
         }
@@ -146,8 +140,6 @@ const App = props => {
             console.debug('App consent-manager init Set Data!');
 
             const managerData = get(data, 'response.site', {});
-            // JContent.languageBundle = initLanguageBundle(managerData);
-
             dispatch({
                 case: 'DATA_READY',
                 payload: {
@@ -165,13 +157,11 @@ const App = props => {
         return <p>Error :(</p>;
     }
 
-    const consentList = manager.consentNodes.map(consent => {
-        console.log('[App] consent.name : ', consent.name);
-        return <li key={consent.id}>{consent.name}</li>;
-    });
+    // Const consentList = manager.consentNodes.map(consent => {
+    //     return <li key={consent.id}>{consent.name}</li>;
+    // });
 
     const handleReview = () => {
-        // E.preventDefault();
         dispatch({
             case: 'TOGGLE_SHOW_DETAILS'
         });
@@ -180,9 +170,6 @@ const App = props => {
     window._jcm_ = {
         openConsentDetails: handleReview
     };
-
-    console.log('[App] manager.consentNodes : ', manager.consentNodes);
-    console.log('[App] consentList : ', consentList);
 
     const handleDenyAll = () => {
         dispatch({
@@ -236,8 +223,6 @@ const App = props => {
         );
     };
 
-    console.log('[App] userConsentPreference: ', userConsentPreference);
-    console.log('[App] showWrapper: ', showWrapper);
     return (
         <ThemeProvider theme={theme(manager ? manager.userTheme : {})}>
             <div className={classes.main}>
@@ -248,7 +233,6 @@ const App = props => {
                     disableBackdropClick
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
-                    // OnClose={handleClose}
                     className={classes.modal}
                     open={showWrapper}
                     BackdropComponent={Backdrop}
@@ -265,7 +249,6 @@ const App = props => {
                                     <Link component="button"
                                           variant="body1"
                                           color="primary"
-                                          // ClassName={classes.denyAllLink}
                                           onClick={handleDenyAll}
                                     >
                                         {manager.config && manager.config.btnDenyAll}
@@ -285,9 +268,6 @@ const App = props => {
                                     <Button variant="outlined" onClick={handleReview}>
                                         {manager.config && manager.config.btnReview}
                                     </Button>
-                                    {/* <Button onClick={handleDenyAll}> */}
-                                    {/*    {manager.config && manager.config.btnDenyAll} */}
-                                    {/* </Button> */}
                                     <Button onClick={handleGrantAll}>
                                         {manager.config && manager.config.btnGrantAll}
                                     </Button>

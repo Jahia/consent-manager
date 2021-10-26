@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 const TriggerLoader = ({eventName}) => {
     useEffect(() => {
         if (!window.dataLayer) {
-            console.warn('Google Tag Manager dataLayer is not available');
+            console.warn('Google Tag Manager dataLayer is not available, check Ads blocker ');
         } else {
-            console.log(`%c Google Tag Manager dataLayer triggerEvent ${eventName}`, 'color: #3c8cba');
+            console.debug(`%c Google Tag Manager dataLayer triggerEvent ${eventName}`, 'color: #3c8cba');
             window.dataLayer.push({event: eventName});
         }
     }, [eventName]);

@@ -1,13 +1,9 @@
 import React from 'react';
 import {StoreContext} from '../contexts';
 import * as PropTypes from 'prop-types';
-
-// Import {getRandomString} from 'misc/utils';
-// Import {syncQuizScore} from "misc/tracker";
 import managerMapper from '../model/manager';
 import {syncConsentStatus} from '../unomi/tracker';
 import {consentStatus} from '../douane/lib/config';
-// Import App from 'src/javascript/webapp/ConsentManager/App';
 
 const init = jContent => {
     let userConsentPreference = {
@@ -33,18 +29,6 @@ const init = jContent => {
         showSideDetails: false,
         showWrapper: !userConsentPreference.isActive,
         userConsentPreference
-        // ResultSet:[],//array of boolean, order is the same a slideSet
-        // currentResult:false,//previously result
-        // slideSet:[],//previously slideIndex
-        // currentSlide:null,//previously index
-        // showResult:false,
-        // showNext:false,
-        // showScore:false,
-        // max:-1,
-        // score:0,
-        // cxs:null,
-        // reset:false,
-        // scoreIndex:getRandomString(5,"#aA")
     };
 };
 

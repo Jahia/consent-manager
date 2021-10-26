@@ -24,7 +24,6 @@ const contextValidator = context => {
         language: context.language,
         workspace: getGQLWorkspace(context.workspace)
     };
-    console.log('[Douane] context : ', context);
     return context;
 };
 

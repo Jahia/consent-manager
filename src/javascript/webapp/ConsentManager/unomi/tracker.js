@@ -1,11 +1,10 @@
 import uTracker from 'unomi-analytics';
 
-const syncTracker = ({scope, url, /* sessionId, */dispatch}) => {
+const syncTracker = ({scope, url, dispatch}) => {
     uTracker.initialize({
         'Apache Unomi': {
             scope,
             url
-            // SessionId
         }
     });
 
@@ -19,12 +18,11 @@ const syncTracker = ({scope, url, /* sessionId, */dispatch}) => {
     );
 };
 
-// TODO build the revoke date based on consent Manager cookieDuration
+// Note build the revoke date based on consent Manager cookieDuration
 const syncConsentStatus = ({typeIdentifier, scope, status}) => {
     const statusDate = new Date();
     const revokeDate = new Date(statusDate);
     revokeDate.setFullYear(revokeDate.getFullYear() + 2);
-    // Console.debug('syncConsentStatus status :', status);
 
     uTracker.track('modifyConsent', {
         consent: {
