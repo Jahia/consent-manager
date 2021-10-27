@@ -224,7 +224,7 @@ const App = props => {
     };
 
     return (
-        <ThemeProvider theme={theme(manager ? manager.userTheme : {})}>
+        <ThemeProvider theme={theme(manager && manager.config ? manager.config.userTheme : {})}>
             <div className={classes.main}>
                 {loadUserConsents()}
                 {!userConsentPreference.isActive &&
