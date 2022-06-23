@@ -18,5 +18,5 @@ repository.xml.generated
 node_modules
 node
 yarn-error.log
-yarn.lock
+#yarn.lock
 src/main/resources/javascript/webapp
