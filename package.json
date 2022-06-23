@@ -50,6 +50,9 @@
     "sass-loader": "^11.0.1",
     "unomi-analytics": "^1.0.10"
   },
+"resolutions": {
+    "@apollo/client": "3.5.10"
+  },
   "devDependencies": {
     "@babel/compat-data": "^7.9.0",
     "@babel/core": "^7.9.0",
